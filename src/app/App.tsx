@@ -2,14 +2,12 @@ import React from 'react';
 import "../css/app.css";
 import { Container, Stack, Box, Typography, Button } from '@mui/material';
 import { Link, Route, Switch } from 'react-router-dom';
-import { About } from './screen/About';
-import { Users } from './screen/Users';
+import { HomePage } from './screen/homePage';
+import { ProductsPage } from './screen/productsPage';
+import { OrdersPage } from './screen/ordersPage/orders';
+import { UserPage } from './screen/userPape';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
-
-function Home() {
-  return <h1>Home</h1>;
-}
 
 function App() {
   return (
@@ -20,25 +18,31 @@ function App() {
             <RouterLink to="/">Home</RouterLink>
           </li>
           <li>
-            <RouterLink to="/about">About</RouterLink>
+            <RouterLink to="/products">ProductsPage</RouterLink>
           </li>
           <li>
-            <RouterLink to="/users">Users</RouterLink>
+            <RouterLink to="/orders">OrdersPage</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/member-page">UserPage</RouterLink>
           </li>
         </ul>
       </nav>
 
       <Switch>
-        <Route path="/about">
-          <About />
+        <Route path="/products">
+          <ProductsPage />
         </Route>
 
-        <Route path="/users">
-          <Users />
+        <Route path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route path="/orders">
+          <UserPage />
         </Route>
 
         <Route path="/">
-          <Home />
+          <HomePage />
         </Route>
       </Switch>
     </div>
