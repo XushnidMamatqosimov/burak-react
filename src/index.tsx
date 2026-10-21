@@ -4,11 +4,15 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "./theme";
 import './css/index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <CssBaseline />
       <App />
     </Provider>
   </React.StrictMode>,
