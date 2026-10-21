@@ -7,15 +7,23 @@ import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './app/MaterailTheme';
+import { BrowserRouter as Router } from "react-router-dom";
+
+const CompatibleRouter = Router as unknown as React.ComponentType<React.PropsWithChildren>;
+const CompatibleProvider = Provider as unknown as React.ComponentType<
+  React.PropsWithChildren<{ store: typeof store }>
+>;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <CompatibleProvider store={store}>
       <ThemeProvider theme = {theme}>
         <CssBaseline />
-        <App />
+        <CompatibleRouter>
+          <App />
+        </CompatibleRouter>
       </ThemeProvider>
-    </Provider>
+    </CompatibleProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
