@@ -1,6 +1,4 @@
 import React from 'react';
-// @ts-ignore
-import "../css/app.css";
 import { Container, Stack, Box, Typography, Button } from '@mui/material';
 import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import { HomePage } from './screen/homePage';
@@ -10,6 +8,10 @@ import { UserPage } from './screen/userPape';
 import { HomeNavbar } from './components/headers/HomeNavbar';
 import { OtherNavbar } from './components/headers/OtherNavbar';
 import { Footer } from './components/footer';
+// @ts-ignore
+import "../css/app.css";
+import "../css/navbar.css";
+import { HelpPage } from './screen/helpPage';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
 
@@ -23,12 +25,14 @@ function App() {
         <Route path="/products">
           <ProductsPage />
         </Route>
-
         <Route path="/orders">
           <OrdersPage />
         </Route>
-        <Route path="/orders">
+        <Route path="/member-page">
           <UserPage />
+        </Route>
+        <Route path="/help">
+          <HelpPage />
         </Route>
 
         <Route path="/">
