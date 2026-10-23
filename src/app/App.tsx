@@ -1,34 +1,24 @@
 import React from 'react';
+// @ts-ignore
 import "../css/app.css";
 import { Container, Stack, Box, Typography, Button } from '@mui/material';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import { HomePage } from './screen/homePage';
 import { ProductsPage } from './screen/productsPage';
 import { OrdersPage } from './screen/ordersPage/orders';
 import { UserPage } from './screen/userPape';
+import { HomeNavbar } from './components/headers/HomeNavbar';
+import { OtherNavbar } from './components/headers/OtherNavbar';
+import { Footer } from './components/footer';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
 
 function App() {
-  return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <RouterLink to="/">Home</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/products">ProductsPage</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/orders">OrdersPage</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/member-page">UserPage</RouterLink>
-          </li>
-        </ul>
-      </nav>
+  const location = useLocation();
 
+  return (
+    <>
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Switch>
         <Route path="/products">
           <ProductsPage />
@@ -45,7 +35,8 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
-    </div>
+      <Footer />
+    </>
   );
 }
 
