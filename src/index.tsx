@@ -1,4 +1,5 @@
 import React from 'react';
+import {createRoot} from "react-dom/client";
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -14,7 +15,10 @@ const CompatibleProvider = Provider as unknown as React.ComponentType<
   React.PropsWithChildren<{ store: typeof store }>
 >;
 
-ReactDOM.render(
+const container = document.getElementById("root")!;
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <CompatibleProvider store={store}>
       <ThemeProvider theme = {theme}>
@@ -25,7 +29,6 @@ ReactDOM.render(
       </ThemeProvider>
     </CompatibleProvider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
