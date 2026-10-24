@@ -5,9 +5,10 @@ import NewDishes from "./NewDishes"
 import Advertisement from "./Advertisement"
 import ActiveUsers from "./ActiveUsers"
 import Events from "./Events"
+import "../../../css/home.css";
 
 export default function HomePage() {
-    return <div className={"hoomepage"}>
+    return <div className={"homepage"}>
         <Statistics />
         <PopularDishes />
         <NewDishes />
