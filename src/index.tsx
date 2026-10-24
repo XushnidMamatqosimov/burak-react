@@ -10,6 +10,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './app/MaterailTheme';
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { THEME_ID as MATERIAL_THEME_ID } from "@mui/material/styles";
+
 const CompatibleRouter = Router as unknown as React.ComponentType<React.PropsWithChildren>;
 const CompatibleProvider = Provider as unknown as React.ComponentType<
   React.PropsWithChildren<{ store: typeof store }>
@@ -21,7 +23,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <CompatibleProvider store={store}>
-      <ThemeProvider theme = {theme}>
+      <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
         <CssBaseline />
         <CompatibleRouter>
           <App />
