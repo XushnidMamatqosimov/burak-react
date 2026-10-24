@@ -2,31 +2,17 @@ import { Box, Button, Container, Stack } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export function HomeNavbar() {
-    const authMember = null;
+    const authMember = true;
     return (
         <div className="home-navbar">
-            <Container sx={{ mt: "55px", height: "642px" }}>
-                <Stack
-                    direction="row"
-                    sx={{
-                        height: "50px",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}
-                >
+            <Container className="navbar-container">
+                <Stack className="menu">
                     <Box>
                         <NavLink to="/">
-                            <img style={{ width: "125px", height: "30px" }} src="/icons/burak.svg" />
+                            <img className="brand-logo" src="/icons/burak.svg" />
                         </NavLink>
                     </Box>
-                    <Stack
-                        sx={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            minWidth: "700px",
-                            alignItems: "center",
-                        }}
-                    >
+                    <Stack className="links">
                         <Box className={"hover-line"}>
                             <NavLink to="/" activeClassName="underline">Home</NavLink>
                         </Box>
@@ -49,12 +35,18 @@ export function HomeNavbar() {
                         {/* {Baket} */}
                         {!authMember ? (
                             <Box>
-                                <Button variant="contained" style={{background: "#3776CC", color: "#f8f8ff"}}>Login</Button>
-                            </Box>) : (<img />)}
-
-
+                                <Button variant="contained" className="login-button">Login</Button>
+                            </Box>
+                        ) : (
+                             <img className="user-avatar"
+                                src={"/icons/default-user.svg"}
+                                aria-haspopup={"true"}
+                            />
+                        )}
                     </Stack>
                 </Stack>
+
+                {/* 2-qism */}
                 <Stack></Stack>
             </Container>
         </div>);
