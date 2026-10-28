@@ -1,11 +1,78 @@
-import { Container } from "@mui/material";
-import React from "react";
+import { Box, Container, Divider, Stack } from "@mui/material";
+import {
+    AspectRatio,
+    Card,
+    CardOverflow,
+    Typography,
+} from "@mui/joy";
+import { CssVarsProvider } from "@mui/joy/styles";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+const newDishes = [
+    { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
+    { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
+    { productName: "Kebab", imagePath: "/img/kebab.webp" },
+    { productName: "Lavash", imagePath: "/img/lavash.webp" },
+];
 
 
 export default function NewDishes() {
     return (
-        <div>
-            <Container>NewDishes</Container>
+        <div className={"new-products-frame"}>
+            <Container>
+                <Stack className={"main"}>
+                    <Box className={"category-title"}>Fresh Menu</Box>
+
+                    <Stack className={"cards-frame"}>
+                        <CssVarsProvider>
+                            {newDishes.map((ele, index) => {
+                                return (
+                                    <Card key={index} variant="outlined" className={"card"}>
+                                        <CardOverflow>
+                                            <div className="product-sale">Normal size</div>
+
+                                            <AspectRatio ratio="1">
+                                                <img src={ele.imagePath} alt="" />
+                                            </AspectRatio>
+                                        </CardOverflow>
+
+                                        <CardOverflow variant="soft" className="product-detail">
+                                            <Stack className="info">
+                                                <Stack direction="row">
+                                                    <Typography className={"title"}>
+                                                        {ele.productName}
+                                                    </Typography>
+
+                                                    <Divider
+                                                        orientation="vertical"
+                                                        sx={{
+                                                            width: "2px",
+                                                            height: "24px",
+                                                            bgcolor: "#d9d9d9",
+                                                            border: "none",
+                                                        }}
+                                                    />
+
+                                                    <Typography className={"price"}>$12</Typography>
+                                                </Stack>
+
+                                                <Stack>
+                                                    <Typography className={"views"}>
+                                                        20
+                                                        <VisibilityIcon
+                                                            sx={{ fontSize: 20, marginLeft: "5px" }}
+                                                        />
+                                                    </Typography>
+                                                </Stack>
+                                            </Stack>
+                                        </CardOverflow>
+                                    </Card>
+                                );
+                            })}
+                        </CssVarsProvider>
+                    </Stack>
+                </Stack>
+            </Container>
         </div>
     );
 }
