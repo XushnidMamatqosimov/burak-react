@@ -1,0 +1,585 @@
+.order-page .paused-orders-panel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.order-page .paused-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 12px 14px 24px;
+}
+
+.order-page .paused-order-card {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 18px 30px 14px;
+  box-sizing: border-box;
+  border: 7px solid #deddec;
+  border-radius: 20px;
+  background-color: #f8f8ff;
+  box-shadow:
+    -11px 11px 4px rgba(0, 0, 0, 0.23),
+    inset 0 0 12px rgba(130, 130, 160, 0.16);
+}
+
+.order-page .paused-order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.order-page .paused-order-item {
+  display: flex;
+  align-items: center;
+  min-height: 49px;
+  gap: 22px;
+}
+
+.order-page .paused-order-image {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.22);
+}
+
+.order-page .paused-order-name {
+  flex: 1;
+  min-width: 0;
+  color: #111;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.order-page .paused-order-price {
+  display: grid;
+  grid-template-columns: 42px 22px 20px 22px 48px;
+  align-items: center;
+  justify-content: end;
+  gap: 6px;
+  margin-right: 70px;
+  color: #555;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.order-page .paused-order-symbol {
+  color: #858a98;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.order-page .paused-order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.order-page .paused-order-summary {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 16px;
+  color: #111;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.order-page .paused-order-summary-part {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.order-page .paused-order-amount {
+  color: #555;
+}
+
+.order-page .paused-order-actions {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.order-page .paused-order-button.MuiButton-root {
+  min-width: 96px;
+  height: 38px;
+  padding: 6px 14px;
+  border-radius: 11px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order-page .paused-order-cancel.MuiButton-root {
+  color: #343434;
+  background-color: #d7bd94;
+}
+
+.order-page .paused-order-cancel.MuiButton-root:hover {
+  background-color: #c9ac80;
+}
+
+.order-page .paused-order-payment.MuiButton-root {
+  color: #fff;
+  background-color: #7fbd69;
+}
+
+.order-page .paused-order-payment.MuiButton-root:hover {
+  background-color: #6ba655;
+}
+
+/* Kichik ekranlar */
+@media (max-width: 1000px) {
+  .order-page .paused-order-actions {
+    gap: 20px;
+  }
+
+  .order-page .paused-order-price {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-page .paused-order-card {
+    padding: 16px 12px;
+  }
+
+  .order-page .paused-order-item {
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+  }
+
+  .order-page .paused-order-name {
+    font-size: 18px;
+  }
+
+  .order-page .paused-order-price {
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .order-page .paused-order-summary {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .order-page .paused-order-summary-part {
+    gap: 10px;
+  }
+
+  .order-page .paused-order-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* PROCESS ORDERS */
+
+.order-page .process-orders-panel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.order-page .process-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 18px 16px 30px;
+}
+
+.order-page .process-order-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 22px 12px 44px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: #f8f8ff;
+  box-shadow:
+    -15px 20px 5px rgba(0, 0, 0, 0.23),
+    inset 0 10px 20px rgba(157, 155, 188, 0.36),
+    inset 0 -10px 20px rgba(157, 155, 188, 0.36);
+}
+
+/* Mahsulotlar */
+
+.order-page .process-order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 20px 0;
+}
+
+.order-page .process-order-item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 330px;
+  align-items: center;
+  gap: 28px;
+  min-height: 64px;
+}
+
+.order-page .process-order-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.order-page .process-order-name {
+  color: #111;
+  font-family: "Times New Roman", serif;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.order-page .process-order-price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.order-page .process-order-line-total {
+  margin-left: 18px;
+}
+
+.order-page .process-order-symbol {
+  color: #828898;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Jami summa, sana va tugma */
+
+.order-page .process-order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 18px;
+}
+
+.order-page .process-order-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  color: #222;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+}
+
+.order-page .process-order-summary-part {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  white-space: nowrap;
+}
+
+.order-page .process-order-date {
+  color: #505050;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.order-page .process-order-confirm.MuiButton-root {
+  min-width: 216px;
+  height: 48px;
+  padding: 8px 20px;
+  border-radius: 13px;
+  color: #fff;
+  background-color: #0098cb;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.18),
+    0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order-page .process-order-confirm.MuiButton-root:hover {
+  background-color: #0084b1;
+}
+
+/* Kichik ekranlar */
+
+@media (max-width: 1100px) {
+  .order-page .process-order-item {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+  }
+
+  .order-page .process-order-summary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-page .process-order-card {
+    padding: 20px 16px;
+  }
+
+  .order-page .process-order-items {
+    padding: 0;
+    gap: 18px;
+  }
+
+  .order-page .process-order-item {
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .order-page .process-order-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .order-page .process-order-name {
+    font-size: 24px;
+  }
+
+  .order-page .process-order-price {
+    grid-column: 2;
+    font-size: 20px;
+  }
+
+  .order-page .process-order-summary {
+    gap: 12px;
+    font-size: 16px;
+  }
+
+  .order-page .process-order-summary-part {
+    gap: 12px;
+  }
+
+  .order-page .process-order-date {
+    font-size: 16px;
+  }
+
+  .order-page .process-order-confirm.MuiButton-root {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+/* FINISHED ORDERS */
+
+.order-page .finished-orders-panel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.order-page .finished-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 18px 16px 30px;
+}
+
+.order-page .finished-order-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 26px 44px 24px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background-color: #f8f8ff;
+  box-shadow:
+    -15px 20px 5px rgba(0, 0, 0, 0.23),
+    inset 0 10px 20px rgba(157, 155, 188, 0.36),
+    inset 0 -10px 20px rgba(157, 155, 188, 0.36);
+}
+
+/* Mahsulot qatorlari */
+
+.order-page .finished-order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 20px;
+}
+
+.order-page .finished-order-item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 310px;
+  align-items: center;
+  gap: 28px;
+  min-height: 64px;
+}
+
+.order-page .finished-order-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.order-page .finished-order-name {
+  color: #111;
+  font-family: "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.order-page .finished-order-price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.order-page .finished-order-line-total {
+  margin-left: 18px;
+}
+
+.order-page .finished-order-symbol {
+  color: #828898;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Pastdagi jami hisob */
+
+.order-page .finished-order-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 28px;
+  color: #111;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+}
+
+.order-page .finished-order-summary-part {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  white-space: nowrap;
+}
+
+/* Kichik ekranlar */
+
+@media (max-width: 1000px) {
+  .order-page .finished-order-item {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+  }
+
+  .order-page .finished-order-summary {
+    gap: 18px;
+  }
+
+  .order-page .finished-order-summary-part {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-page .finished-order-card {
+    padding: 22px 16px;
+  }
+
+  .order-page .finished-order-items {
+    padding: 0;
+    gap: 18px;
+  }
+
+  .order-page .finished-order-item {
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 10px 14px;
+  }
+
+  .order-page .finished-order-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .order-page .finished-order-name {
+    font-size: 24px;
+  }
+
+  .order-page .finished-order-price {
+    grid-column: 2;
+    font-size: 20px;
+  }
+
+  .order-page .finished-order-summary {
+    gap: 12px;
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .order-page .finished-order-summary-part {
+    gap: 12px;
+  }
+
+  .order-page .finished-order-symbol {
+    font-size: 24px;
+  }
+}
+
+.order-page .order-container.MuiContainer-root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 36px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.order-page .order-left {
+  width: 100%;
+  min-width: 0;
+}
+
+.order-page .order-right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  min-width: 0;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+  .order-page .order-container.MuiContainer-root {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .order-page .order-right {
+    padding-top: 0;
+  }
+}

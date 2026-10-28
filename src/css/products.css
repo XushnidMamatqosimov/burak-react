@@ -29,6 +29,618 @@
     justify-content: center;
 }
 
+
+
+
+
+/* UMUMIY SAHIFA */
+
+.catalog-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 104px 0 70px;
+  background-color: #f8f8ff;
+  color: #343434;
+  box-sizing: border-box;
+}
+
+.catalog-page *,
+.catalog-page *::before,
+.catalog-page *::after {
+  box-sizing: border-box;
+}
+
+.catalog-page button,
+.catalog-page input {
+  font: inherit;
+}
+
+.catalog-page button {
+  cursor: pointer;
+}
+
+.catalog-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.catalog-container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* SARLAVHA VA QIDIRUV */
+
+.catalog-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 450px;
+  align-items: center;
+  gap: 40px;
+}
+
+.catalog-heading {
+  margin: 0;
+  color: #343434;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.catalog-search {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.05);
+}
+
+.catalog-search input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0 22px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+}
+
+.catalog-search input::placeholder {
+  color: #999;
+}
+
+.catalog-search button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 30px;
+  background-color: #343434;
+  color: #d7b586;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+.catalog-search button:hover {
+  background-color: #454545;
+}
+
+.catalog-search button svg {
+  font-size: 24px;
+}
+
+/* NEW / PRICE / VIEWS */
+
+.catalog-filters {
+  display: flex;
+  justify-content: flex-end;
+  gap: 26px;
+  margin: 80px 80px 52px 0;
+}
+
+.catalog-filter {
+  min-width: 90px;
+  height: 50px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #ddbd8c;
+  color: #343434;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+.catalog-filter:hover {
+  background-color: #d2ae79;
+}
+
+.catalog-filter.is-active {
+  background-color: #343434;
+  color: #d7b586;
+}
+
+/* KATEGORIYALAR VA MAHSULOTLAR JOYLASHUVI */
+
+.catalog-content {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 40px;
+}
+
+.catalog-categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 30px;
+}
+
+.catalog-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  min-height: 90px;
+  padding: 24px 12px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #ddbd8c;
+  color: #343434;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.catalog-category:hover {
+  background-color: #d2ae79;
+}
+
+.catalog-category.is-active {
+  background-color: #343434;
+  color: #d7b586;
+}
+
+/* TO‘RT USTUNLI MAHSULOTLAR */
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 58px;
+  min-width: 0;
+}
+
+.catalog-card {
+  min-width: 0;
+  text-align: center;
+}
+
+.catalog-image-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-top-right-radius: 70px;
+  background-color: #e8e8ee;
+}
+
+.catalog-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.catalog-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* NORMAL SIZE BELGISI */
+
+.catalog-sale {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 25px;
+  background-color: #ff9800;
+  color: #fff;
+  font-family: "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* MAHSULOT NOMI VA NARXI */
+
+.catalog-product-name {
+  margin: 16px 0 10px;
+  font-family: "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.catalog-product-name a:hover {
+  color: #b78b52;
+}
+
+.catalog-product-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  color: #e4c697;
+  font-family: "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.catalog-product-price svg {
+  font-size: 29px;
+}
+
+/* SICHQONCHA OLIB BORILGANDA CHIQADIGAN TUGMALAR */
+
+.catalog-card-actions {
+  position: absolute;
+  right: 28px;
+  bottom: 16px;
+  left: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 26px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.catalog-card:hover .catalog-card-actions,
+.catalog-card:focus-within .catalog-card-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.catalog-cart-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 46px;
+  border: 2px solid #d7b586;
+  border-radius: 11px;
+  background-color: #a300c4;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.catalog-cart-button:hover {
+  background-color: #8700a3;
+}
+
+.catalog-cart-button svg {
+  font-size: 26px;
+}
+
+.catalog-cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 50%;
+  background-color: #d7b586;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.catalog-views {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  pointer-events: none;
+}
+
+.catalog-views svg {
+  font-size: 28px;
+}
+
+.catalog-views > span {
+  position: absolute;
+  top: -10px;
+  right: -14px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  background-color: #d7b586;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* BO‘SH RO‘YXAT */
+
+.catalog-empty {
+  grid-column: 1 / -1;
+  padding: 90px 20px;
+  color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* PAGINATION */
+
+.catalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.catalog-pagination button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.catalog-pagination button:hover:not(:disabled) {
+  background-color: #eae3d8;
+}
+
+.catalog-pagination button.is-active {
+  background-color: #d7b586;
+}
+
+.catalog-pagination button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.catalog-pagination svg {
+  font-size: 21px;
+}
+
+/* Klaviatura bilan boshqarish */
+
+.catalog-page button:focus-visible,
+.catalog-page a:focus-visible,
+.catalog-search:focus-within {
+  outline: 2px solid #b78b52;
+  outline-offset: 4px;
+}
+
+.catalog-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* PLANSHET */
+
+@media (max-width: 1200px) {
+  .catalog-page {
+    padding-top: 70px;
+  }
+
+  .catalog-header {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+
+  .catalog-heading {
+    font-size: 38px;
+  }
+
+  .catalog-filters {
+    margin-right: 0;
+  }
+
+  .catalog-content {
+    column-gap: 24px;
+  }
+
+  .catalog-grid {
+    column-gap: 20px;
+    row-gap: 40px;
+  }
+
+  .catalog-image-box {
+    border-top-right-radius: 50px;
+  }
+
+  .catalog-sale {
+    top: 10px;
+    left: 10px;
+    min-width: 90px;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .catalog-product-name {
+    font-size: 23px;
+  }
+
+  .catalog-product-price {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 900px) {
+  .catalog-header {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .catalog-search {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .catalog-filters {
+    justify-content: center;
+    margin: 42px 0 36px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+  .catalog-page {
+    padding-top: 42px;
+  }
+
+  .catalog-container {
+    padding: 0 16px;
+  }
+
+  .catalog-heading {
+    font-size: 32px;
+  }
+
+  .catalog-content {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .catalog-categories {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 0;
+  }
+
+  .catalog-category {
+    width: auto;
+    min-height: 40px;
+    padding: 10px 14px;
+    font-size: 13px;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .catalog-filters {
+    gap: 12px;
+  }
+
+  .catalog-filter {
+    min-width: 76px;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 15px;
+  }
+
+  .catalog-grid {
+    gap: 30px 14px;
+  }
+
+  .catalog-image-box {
+    border-top-right-radius: 38px;
+  }
+
+  .catalog-sale {
+    top: 8px;
+    left: 8px;
+    min-width: 76px;
+    height: 26px;
+    font-size: 10px;
+  }
+
+  .catalog-product-name {
+    margin-top: 12px;
+    font-size: 21px;
+  }
+
+  .catalog-product-price {
+    font-size: 25px;
+  }
+
+  .catalog-product-price svg {
+    font-size: 23px;
+  }
+
+  .catalog-card-actions {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    gap: 18px;
+  }
+
+  .catalog-cart-button {
+    width: 48px;
+    height: 36px;
+  }
+}
+
+@media (hover: none) {
+  .catalog-card-actions {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+
+
+
+
+
 .products-page .category-main {
     display: flex;
     flex-direction: column;
@@ -586,3 +1198,5 @@
   line-height: 43px;
   margin-top: 40px;
 }
+
+

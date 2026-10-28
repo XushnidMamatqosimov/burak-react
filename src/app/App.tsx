@@ -3,7 +3,7 @@ import { Container, Stack, Box, Typography, Button } from '@mui/material';
 import { Link, Route, Switch, useLocation } from 'react-router-dom';
 import HomePage from './screen/homePage';
 import ProductsPage from './screen/productsPage';
-import OrdersPage from './screen/ordersPage/orders';
+import OrdersPage from './screen/ordersPage';
 import UserPage from './screen/userPape';
 import HomeNavbar from './components/headers/HomeNavbar';
 import OtherNavbar from './components/headers/OtherNavbar';
