@@ -1,5 +1,5 @@
 import React from 'react';
-import {createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -9,6 +9,7 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './app/MaterailTheme';
 import { BrowserRouter as Router } from "react-router-dom";
+import { CssVarsProvider } from "@mui/joy/styles";
 
 import { THEME_ID as MATERIAL_THEME_ID } from "@mui/material/styles";
 
@@ -24,10 +25,12 @@ root.render(
   <React.StrictMode>
     <CompatibleProvider store={store}>
       <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
-        <CssBaseline />
-        <CompatibleRouter>
-          <App />
-        </CompatibleRouter>
+        <CssVarsProvider>
+          <CssBaseline />
+          <CompatibleRouter>
+            <App />
+          </CompatibleRouter>
+        </CssVarsProvider>
       </ThemeProvider>
     </CompatibleProvider>
   </React.StrictMode>,
