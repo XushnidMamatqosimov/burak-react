@@ -15,6 +15,7 @@ import "../css/navbar.css";
 // @ts-ignore
 import "../css/footer.css";
 import HelpPage from './screen/helpPage';
+import Test from './screen/Test';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
 
@@ -39,7 +40,8 @@ function App() {
         </Route>
 
         <Route path="/">
-          <HomePage />
+          <Test />
+          {/* <HomePage /> */}
         </Route>
       </Switch>
       <Footer />

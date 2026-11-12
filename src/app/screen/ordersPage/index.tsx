@@ -9,6 +9,7 @@ import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
 
+//@ts-ignore
 import "../../../css/order.css";
 
 const panelStyle = {
