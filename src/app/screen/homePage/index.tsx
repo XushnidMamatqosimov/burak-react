@@ -48,7 +48,7 @@ export default function HomePage() {
     product.getProducts({
       page: 1,
       limit: 4,
-      order: "productViews",
+      order: "createdAt",
       productCollection: ProductCollection.DISH,
     }).then((data: Product[]) => {
       console.log("NewDishes passed: ", data);
