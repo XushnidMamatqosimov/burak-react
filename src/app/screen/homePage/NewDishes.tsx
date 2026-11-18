@@ -1,80 +1,93 @@
 import { Box, Container, Divider, Stack } from "@mui/material";
 import {
-    AspectRatio,
-    Card,
-    CardOverflow,
-    Typography,
+  AspectRatio,
+  Card,
+  CardOverflow,
+  Typography,
 } from "@mui/joy";
 import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const newDishes = [
-    { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-    { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-    { productName: "Kebab", imagePath: "/img/kebab.webp" },
-    { productName: "Lavash", imagePath: "/img/lavash.webp" },
-];
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
+import { serverApi } from "../../../lib/config";
+import { createSelector } from "@reduxjs/toolkit";
+import { rethrieveNewDishes } from "./selector";
+import { Product } from "../../../lib/types/product";
 
+const newDishesRetriever = createSelector(
+  rethrieveNewDishes,
+  (newDishes) => ({ newDishes }),
+);
 
 export default function NewDishes() {
-    return (
-        <div className={"new-products-frame"}>
-            <Container>
-                <Stack className={"main"}>
-                    <Box className={"category-title"}>Fresh Menu</Box>
+  const { newDishes } = useSelector((state: RootState) => newDishesRetriever(state));
+  console.log("NewDishes from newDishes.tsx", newDishes);
 
-                    <Stack className={"cards-frame"}>
-                        <CssVarsProvider>
-                            {newDishes.length !== 0 ? (
-                                newDishes.map((ele, index) => (
-                                    <Card key={index} variant="outlined" className={"card"}>
-                                        <CardOverflow>
-                                            <div className="product-sale">Normal size</div>
+  return (
+    <div className={"new-products-frame"}>
+      <Container>
+        <Stack className={"main"}>
+          <Box className={"category-title"}>Fresh Menu</Box>
 
-                                            <AspectRatio ratio="1">
-                                                <img src={ele.imagePath} alt="" />
-                                            </AspectRatio>
-                                        </CardOverflow>
+          <Stack className={"cards-frame"}>
+            <CssVarsProvider>
+              {newDishes.length !== 0 ? (
+                newDishes.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume = product.productCollection
+                    ? product.productVolume + "L"
+                    : product.productSize + "size";
+                  return (
+                    <Card key={product._id} variant="outlined" className={"card"}>
+                      <CardOverflow>
+                        <div className="product-sale">{sizeVolume}</div>
 
-                                        <CardOverflow variant="soft" className="product-detail">
-                                            <Stack className="info">
-                                                <Stack direction="row">
-                                                    <Typography className={"title"}>
-                                                        {ele.productName}
-                                                    </Typography>
+                        <AspectRatio ratio="1">
+                          <img src={imagePath} alt="" />
+                        </AspectRatio>
+                      </CardOverflow>
 
-                                                    <Divider
-                                                        orientation="vertical"
-                                                        sx={{
-                                                            width: "2px",
-                                                            height: "24px",
-                                                            bgcolor: "#d9d9d9",
-                                                            border: "none",
-                                                        }}
-                                                    />
+                      <CardOverflow variant="soft" className="product-detail">
+                        <Stack className="info">
+                          <Stack direction="row">
+                            <Typography className={"title"}>
+                              {product.productName}
+                            </Typography>
 
-                                                    <Typography className={"price"}>$12</Typography>
-                                                </Stack>
+                            <Divider
+                              orientation="vertical"
+                              sx={{
+                                width: "2px",
+                                height: "24px",
+                                bgcolor: "#d9d9d9",
+                                border: "none",
+                              }}
+                            />
 
-                                                <Stack>
-                                                    <Typography className={"views"}>
-                                                        20
-                                                        <VisibilityIcon
-                                                            sx={{ fontSize: 20, marginLeft: "5px" }}
-                                                        />
-                                                    </Typography>
-                                                </Stack>
-                                            </Stack>
-                                        </CardOverflow>
-                                    </Card>
-                                ))
-                            ) : (
-                                <Box className="no-data">New Products not available</Box>
-                            )}
-                        </CssVarsProvider>
-                    </Stack>
-                </Stack>
-            </Container>
-        </div>
-    );
+                            <Typography className={"price"}>{product.productPrice}</Typography>
+                          </Stack>
+
+                          <Stack>
+                            <Typography className={"views"}>
+                              {product.productViews}
+                              <VisibilityIcon
+                                sx={{ fontSize: 20, marginLeft: "5px" }}
+                              />
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </CardOverflow>
+                    </Card>
+                  );
+                })
+              ) : (
+                <Box className="no-data">New Products not available</Box>
+              )}
+            </CssVarsProvider>
+          </Stack>
+        </Stack>
+      </Container>
+    </div>
+  );
 }
