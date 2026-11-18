@@ -3,48 +3,60 @@ import Card from "@mui/joy/Card";
 import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
+import { createSelector } from "@reduxjs/toolkit";
+import { rethrieveTopUsers } from "./selector";
+import { useSelector } from "react-redux";
+import { Member } from "../../../lib/types/member";
+import { serverApi } from "../../../lib/config";
 
-const activeUsers = [
-    { memberNick: "Martin", memberImage: "/img/martin.webp" },
-    { memberNick: "Justin", memberImage: "/img/justin.webp" },
-    { memberNick: "Rose", memberImage: "/img/rose.webp" },
-    { memberNick: "Nusret", memberImage: "/img/nusret.webp" },
-];
+/** Redux selecotor**/
+const topUsersRetriever = createSelector(
+    rethrieveTopUsers,
+    (topUsers) => ({ topUsers })
+);
+
 
 export default function ActiveUsers() {
+    const { topUsers } = useSelector(topUsersRetriever);
     return (
-        <div className="active-users-frame">
-            <Container>
-                <Stack className="main">
-                    <Box className="category-title">Active Users</Box>
+    <div className="active-users-frame">
+        <Container>
+            <Stack className="main">
+                <Box className="category-title">Active Users</Box>
 
-                    <Stack className="cards-frame">
-                        <CssVarsProvider>
-                            {activeUsers.length !== 0 ? (
-                                activeUsers.map((user) => (
+                <Stack className="cards-frame">
+                    <CssVarsProvider>
+                        {topUsers.length !== 0 ? (
+                            topUsers.map((member: Member) => {
+                                const memberImage = `${serverApi}/${member.memberImage}`;
+                                return (
                                     <Card
-                                        key={user.memberNick}
+                                        key={member._id}
                                         variant="outlined"
                                         className="card"
                                     >
                                         <CardOverflow>
                                             <AspectRatio ratio="1">
-                                                <img src={user.memberImage} alt={user.memberNick} />
+                                                <img
+                                                    src={memberImage}
+                                                    alt={member.memberNick}
+                                                />
                                             </AspectRatio>
                                         </CardOverflow>
 
                                         <Typography className="member-nickname">
-                                            {user.memberNick}
+                                            {member.memberNick}
                                         </Typography>
                                     </Card>
-                                ))
-                            ) : (
-                                <Box className="no-data">No Active Users!</Box>
-                            )} 
-                        </CssVarsProvider>
-                    </Stack>
+                                );
+                            })
+                        ) : (
+                            <Box className="no-data">No Active Users!</Box>
+                        )}
+                    </CssVarsProvider>
                 </Stack>
-            </Container>
-        </div>
-    );
+            </Stack>
+        </Container>
+    </div>
+);
 }

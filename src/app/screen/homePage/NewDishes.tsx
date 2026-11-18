@@ -15,6 +15,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { rethrieveNewDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 
+/** Redux selecotor**/
 const newDishesRetriever = createSelector(
   rethrieveNewDishes,
   (newDishes) => ({ newDishes }),
