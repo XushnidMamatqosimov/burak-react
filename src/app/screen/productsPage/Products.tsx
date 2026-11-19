@@ -1,415 +1,357 @@
-import { useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
+import SearchIcon from '@mui/icons-material/Search'
+import { Box, Button, Container, Stack } from '@mui/material'
+import Badge from '@mui/material/Badge'
+import Pagination from '@mui/material/Pagination'
+import PaginationItem from '@mui/material/PaginationItem'
+import { Dispatch } from '@reduxjs/toolkit'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createSelector } from 'reselect'
+import { useHistory } from 'react-router-dom'
+import { serverApi } from '../../../lib/config'
+import { Product, ProductInquiry } from '../../../lib/types/product'
+import { CartItem } from '../../../lib/types/search'
+import ProductService from '../../services/ProductService'
+import { retrieveProducts } from './selector'
+import { setProducts } from './slice'
+import { ProductCollection } from '../../../lib/enums/productEnum'
 
-import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import "../../../css/products.css";
-import { Dispatch } from "@reduxjs/toolkit";
-import { Product } from "../../../lib/types/product";
-import { setProducts } from "./slice";
-import { createSelector } from "@reduxjs/toolkit";
-import { retrieveProducts } from "./selector";
 
-/** Redux Slice & Selector **/
+/** REDUX SLICE and SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
-const ProductRetriever = createSelector(
+const productRetriever = createSelector(
   retrieveProducts,
-  (products) => products
+  (products) => ({ products })
 );
 
-type Category = "Dish" | "Salad" | "Drink" | "Dessert" | "Other";
-type SortOrder = "new" | "price" | "views";
-
-const products = [
-  {
-    id: "1",
-    name: "Cutlet",
-    image: "/img/cutlet.webp",
-    price: 12,
-    views: 20,
-    category: "Dish",
-  },
-  {
-    id: "2",
-    name: "Kebab",
-    image: "/img/kebab-fresh.webp",
-    price: 12,
-    views: 35,
-    category: "Dish",
-  },
-  {
-    id: "3",
-    name: "Kebab",
-    image: "/img/kebab.webp",
-    price: 12,
-    views: 28,
-    category: "Dish",
-  },
-  {
-    id: "4",
-    name: "Lavash",
-    image: "/img/lavash.webp",
-    price: 12,
-    views: 42,
-    category: "Dish",
-  },
-  {
-    id: "5",
-    name: "Lavash",
-    image: "/img/lavash.webp",
-    price: 12,
-    views: 18,
-    category: "Dish",
-  },
-  {
-    id: "6",
-    name: "Cutlet",
-    image: "/img/cutlet.webp",
-    price: 12,
-    views: 30,
-    category: "Dish",
-  },
-  {
-    id: "7",
-    name: "Kebab",
-    image: "/img/kebab.webp",
-    price: 12,
-    views: 24,
-    category: "Dish",
-  },
-  {
-    id: "8",
-    name: "Kebab",
-    image: "/img/kebab-fresh.webp",
-    price: 12,
-    views: 15,
-    category: "Dish",
-  },
-];
-
-const categories: Category[] = [
-  "Dish",
-  "Salad",
-  "Drink",
-  "Dessert",
-  "Other",
-];
-
-const sortOptions: { value: SortOrder; label: string }[] = [
-  { value: "new", label: "NEW" },
-  { value: "price", label: "PRICE" },
-  { value: "views", label: "VIEWS" },
-];
-
-const brands = [
-  { id: 1, image: "/img/doner.webp", name: "Burak brendi 1" },
-  { id: 2, image: "/img/gurme.webp", name: "Burak brendi 2" },
-  { id: 3, image: "/img/doner.webp", name: "Burak brendi 3" },
-  { id: 4, image: "/img/gurme.webp", name: "Burak brendi 4" },
-];
-
-const PAGE_SIZE = 8;
-
-// Google Maps’dan olingan to‘liq embed havolasini shu yerga yozing.
-const MAP_EMBED_URL = "";
 
 export default function Products() {
-  const [category, setCategory] = useState<Category>("Dish");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("new");
+  const { setProducts } = actionDispatch(useDispatch());
+  const { products } = useSelector(productRetriever);
+  const [productSearch, setProductSearch] = useState<ProductInquiry>({
+    page: 1,
+    limit: 8,
+    order: "createdAt",
+    productCollection: ProductCollection.DISH,
+    search: "",
+  });
+  const [searchText, setSearchText] = useState<string>("")
+  const history = useHistory();
 
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
-
-  const [cartCounts, setCartCounts] = useState<Record<string, number>>({});
-  const [cartNotice, setCartNotice] = useState("");
-
-  const filteredProducts = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-
-    const result = products.filter(
-      (product) =>
-        product.category === category &&
-        product.name.toLowerCase().includes(query)
-    );
-
-    if (sortOrder === "price") {
-      result.sort((a, b) => a.price - b.price);
+  useEffect(() => {
+    const productService = new ProductService();
+    productService
+      .getProducts(productSearch)
+      .then((data: Product[]) => setProducts(data))
+      .catch((err: unknown) => console.log(err));
+  }, [productSearch])
+  useEffect(() => {
+    if (searchText === "") {
+      productSearch.search = "";
+      setProductSearch({ ...productSearch })
     }
+  }, [searchText])
 
-    if (sortOrder === "views") {
-      result.sort((a, b) => b.views - a.views);
-    }
 
-    return result;
-  }, [category, sortOrder, searchQuery]);
-
-  const pageCount = Math.max(
-    1,
-    Math.ceil(filteredProducts.length / PAGE_SIZE)
-  );
-
-  const visibleProducts = filteredProducts.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
-  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSearchQuery(searchInput);
-    setPage(1);
-  };
-
-  const handleCategory = (nextCategory: Category) => {
-    setCategory(nextCategory);
-    setPage(1);
-  };
-
-  const handleSort = (nextSort: SortOrder) => {
-    setSortOrder(nextSort);
-    setPage(1);
-  };
-
-  const handleAddToCart = (product: (typeof products)[number]) => {
-    setCartCounts((previous) => ({
-      ...previous,
-      [product.id]: (previous[product.id] || 0) + 1,
-    }));
-
-    setCartNotice(`${product.name} savatga qo‘shildi`);
-  };
+  /* HANDLERS */
+  const searchCollectionHandler = (collection: ProductCollection) => {
+    productSearch.page = 1;
+    productSearch.productCollection = collection;
+    setProductSearch({ ...productSearch });
+  }
+  const searchOrderHandler = (order: string) => {
+    productSearch.page = 1;
+    productSearch.order = order;
+    setProductSearch({ ...productSearch });
+  }
+  const searchProductHandler = () => {
+    productSearch.search = searchText;
+    setProductSearch({ ...productSearch });
+  }
+  const paginationHandler = (e: ChangeEvent<any>, value: number) => {
+    productSearch.page = value;
+    setProductSearch({ ...productSearch });
+  }
+  const chooseDishHandler = (id: string) =>{
+    history.push("/products/${id}");
+  }
 
   return (
-    <div className="products">
-      {/* MAHSULOTLAR KATALOGI */}
-      <main className="catalog-page">
-        <div className="catalog-container">
-          <header className="catalog-header">
-            <h1 className="catalog-heading">Burak Restaurant</h1>
-
-            <form className="catalog-search" onSubmit={handleSearch}>
-              <input
-                type="search"
-                placeholder="Type here"
-                aria-label="Mahsulot qidirish"
-                value={searchInput}
-                onChange={(event) => setSearchInput(event.target.value)}
-              />
-
-              <button type="submit">
-                <span>SEARCH</span>
-                <SearchIcon />
-              </button>
-            </form>
-          </header>
-
-          {/* NEW / PRICE / VIEWS */}
-          <div className="catalog-filters">
-            {sortOptions.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                className={`catalog-filter ${sortOrder === option.value ? "is-active" : ""
-                  }`}
-                aria-pressed={sortOrder === option.value}
-                onClick={() => handleSort(option.value)}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="catalog-content">
-            {/* KATEGORIYALAR */}
-            <nav
-              className="catalog-categories"
-              aria-label="Mahsulot kategoriyalari"
-            >
-              {categories.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={`catalog-category ${category === item ? "is-active" : ""
-                    }`}
-                  aria-pressed={category === item}
-                  onClick={() => handleCategory(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </nav>
-
-            {/* MAHSULOT KARTALARI */}
-            <section
-              className="catalog-grid"
-              aria-label="Mahsulotlar ro‘yxati"
-            >
-              {visibleProducts.length > 0 ? (
-                visibleProducts.map((product) => (
-                  <article key={product.id} className="catalog-card">
-                    <div className="catalog-image-box">
-                      <a
-                        href={`/products/${product.id}`}
-                        className="catalog-image-link"
-                        aria-label={`${product.name} haqida batafsil`}
-                      >
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="catalog-image"
-                        />
-                      </a>
-
-                      <span className="catalog-sale">
-                        Normal size
-                      </span>
-
-                      <div className="catalog-card-actions">
-                        <button
-                          type="button"
-                          className="catalog-cart-button"
-                          aria-label={`${product.name}ni savatga qo‘shish`}
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          <ShoppingCartOutlinedIcon />
-
-                          {cartCounts[product.id] > 0 && (
-                            <span className="catalog-cart-count">
-                              {cartCounts[product.id]}
-                            </span>
-                          )}
-                        </button>
-
-                        <span
-                          className="catalog-views"
-                          aria-label={`${product.views} marta ko‘rilgan`}
-                        >
-                          <VisibilityOutlinedIcon />
-                          <span>{product.views}</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <h2 className="catalog-product-name">
-                      <a href={`/products/${product.id}`}>
-                        {product.name}
-                      </a>
-                    </h2>
-
-                    <div className="catalog-product-price">
-                      <MonetizationOnIcon />
-                      <span>{product.price}</span>
-                    </div>
-                  </article>
-                ))
-              ) : (
-                <div className="catalog-empty">
-                  Products are not available
-                </div>
-              )}
-            </section>
-          </div>
-
-          {/* PAGINATION */}
-          {filteredProducts.length > 0 && (
-            <nav className="catalog-pagination" aria-label="Sahifalar">
-              <button
-                type="button"
-                aria-label="Oldingi sahifa"
-                disabled={page === 1}
-                onClick={() => setPage((previous) => previous - 1)}
-              >
-                <ArrowBackIcon />
-              </button>
-
-              {Array.from({ length: pageCount }, (_, index) => {
-                const pageNumber = index + 1;
-
-                return (
-                  <button
-                    key={pageNumber}
-                    type="button"
-                    className={page === pageNumber ? "is-active" : ""}
-                    aria-current={
-                      page === pageNumber ? "page" : undefined
-                    }
-                    onClick={() => setPage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                );
-              })}
-
-              <button
-                type="button"
-                aria-label="Keyingi sahifa"
-                disabled={page === pageCount}
-                onClick={() => setPage((previous) => previous + 1)}
-              >
-                <ArrowForwardIcon />
-              </button>
-            </nav>
-          )}
-
-          <p className="catalog-status" role="status">
-            {cartNotice}
-          </p>
-        </div>
-      </main>
-
-      {/* BRENDLAR */}
-      <section className="brands-logo" aria-labelledby="brands-heading">
-        <div className="brands-container">
-          <h2 id="brands-heading" className="brands-title">
-            Our Family Brands
-          </h2>
-
-          <div className="brands-list">
-            {brands.map((brand) => (
-              <div key={brand.id} className="brand-card">
-                <img
-                  src={brand.image}
-                  alt={brand.name}
-                  loading="lazy"
+    <div className={'products'}>
+      <Container>
+        <Stack flexDirection={'column'} alignItems={'center'}>
+          <Stack className={'avatar-big-box'}>
+            <Stack className={'top-text'}>
+              <p>Bumarak Restaurant</p>
+              <Stack className={'single-search-big-box'}>
+                <input
+                  type={'search'}
+                  className={'single-search-input'}
+                  name={'singleResearch'}
+                  placeholder={'Type here'}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") searchProductHandler()
+                  }}
                 />
+                <Button
+                  className={'single-button-search'}
+                  variant='contained'
+                  endIcon={<SearchIcon />}
+                  onClick={searchProductHandler}
+                >
+                  Search
+                </Button>
+              </Stack>
+            </Stack>
+          </Stack>
+
+
+          { /* TOPBUTTONS => TOPLEFTCORNERBUTTONS */}
+          <Stack className={'dishes-filter-section'}>
+            <Stack className={'dishes-filter-box'}>
+              <Button
+                variant={'contained'}
+                color={
+                  productSearch.order === 'createdAt'
+                    ? "primary"
+                    : "secondary"}
+                className={'order'}
+                onClick={() =>
+                  searchOrderHandler("createdAt")
+                }
+              >
+                New
+              </Button>
+              <Button
+                variant={'contained'}
+                className={'order'}
+                color={
+                  productSearch.order === 'productPrice'
+                    ? "primary"
+                    : "secondary"}
+                onClick={() =>
+                  searchOrderHandler("createdAt")
+                }
+              >
+                Price
+              </Button>
+              <Button
+                variant={'contained'}
+                className={'order'}
+                color={
+                  productSearch.order === 'productViews'
+                    ? "primary"
+                    : "secondary"}
+                onClick={() =>
+                  searchOrderHandler("createdAt")
+                }
+              >
+                Views
+              </Button>
+            </Stack>
+          </Stack>
+
+
+          {/* ButtonsSide => SideButtons */}
+          <Stack className={'list-category-section'}>
+            <Stack className={'product-category'}>
+              <div className={'category-main'}>
+                <Button
+                  variant={'contained'}
+                  color={
+                    productSearch.productCollection === ProductCollection.OTHER
+                      ? "primary"
+                      : "secondary"}
+                  onClick={() =>
+                    searchCollectionHandler(ProductCollection.OTHER)
+                  }>
+                  Other
+                </Button>
+                <Button
+                  variant={'contained'}
+                  color={
+                    productSearch.productCollection === ProductCollection.DESERT
+                      ? "primary"
+                      : "secondary"}
+                  onClick={() =>
+                    searchCollectionHandler(ProductCollection.DESERT)
+                  }
+                >
+                  Dessert
+                </Button>
+                <Button
+                  variant={'contained'}
+                  color={
+                    productSearch.productCollection === ProductCollection.DRINKS
+                      ? "primary"
+                      : "secondary"}
+                  onClick={() =>
+                    searchCollectionHandler(ProductCollection.DRINKS)
+                  }
+                >
+                  Drink
+                </Button>
+                <Button
+                  variant={'contained'}
+                  color={
+                    productSearch.productCollection === ProductCollection.SALAD
+                      ? "primary"
+                      : "secondary"}
+                  onClick={() =>
+                    searchCollectionHandler(ProductCollection.SALAD)
+                  }
+                >
+                  Salad
+                </Button>
+                <Button
+                  variant={'contained'}
+                  color={
+                    productSearch.productCollection === ProductCollection.DISH
+                      ? "primary"
+                      : "secondary"}
+                  onClick={() =>
+                    searchCollectionHandler(ProductCollection.DISH)
+                  }
+                >
+                  Dish
+                </Button>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </Stack>
 
-      {/* MANZIL VA XARITA */}
-      <section className="address" aria-labelledby="address-heading">
-        <div className="address-container">
-          <h2 id="address-heading" className="address-title">
-            Our address
-          </h2>
+            <Stack className={'product-wrapper'}>
+              {products.length !== 0 ? (
+                products.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINKS
+                      ? product.productVolume + ' litr'
+                      : product.productSize + ' size'
+                  return (
+                    <Stack
+                      key={product._id}
+                      className={'product-card'}
+                      onClick={() => {
+                         chooseDishHandler(product._id)
+                      }}
+                    >
+                      <Stack
+                        className={'product-img'}
+                        sx={{ backgroundImage: `url(${imagePath})` }}
+                      >
+                        <div className={'product-sale'}>{sizeVolume}</div>
+                        <Button
+                          className={'shop-btn'}
+                          onClick={e => {
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            })
+                            e.stopPropagation()
+                          }}
+                        ></Button>
+                        <Button className={'view-btn'} sx={{ right: '36px' }}>
+                          <Badge
+                            badgeContent={product.productViews}
+                            color='secondary'
+                          >
+                            <RemoveRedEyeIcon
+                              sx={{
+                                color:
+                                  product.productViews === 0 ? 'gray' : 'white',
+                              }}
+                            />
+                          </Badge>
+                        </Button>
+                      </Stack>
+                      <Box className={'product-desc'}>
+                        <span className={'product-title'}>
+                          {product.productName}
+                        </span>
+                        <div className={'product-desc'}>
+                          <MonetizationOnIcon />
+                          {product.productPrice}
+                        </div>
+                      </Box>
+                    </Stack>
+                  )
+                })
+              ) : (
+                <Box className='no-data'>Products are not available!</Box>
+              )}
+            </Stack>
+          </Stack>
 
-          {MAP_EMBED_URL ? (
-            <iframe
-              className="address-map"
-              src={MAP_EMBED_URL}
-              width="1320"
-              height="500"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Our address on Google Maps"
-              allowFullScreen
+          <Stack className={'pagination-section'}>
+            <Pagination
+              count={
+                products.length !== 0
+                  ? productSearch.page + 1
+                  : productSearch.page
+              }
+              page={productSearch.page}
+              renderItem={item => (
+                <PaginationItem
+                  slots={{
+                    previous: ArrowBackIcon,
+                    next: ArrowForwardIcon,
+                  }}
+                  {...item}
+                  color={'secondary'}
+                />
+              )}
+              onChange={paginationHandler}
             />
-          ) : (
-            <div className="address-map-placeholder">
-              Restoran manzili xaritasi shu yerda ko‘rsatiladi.
-            </div>
-          )}
-        </div>
-      </section>
+          </Stack>
+        </Stack>
+      </Container>
+
+      <div className={'brands-logo'}>
+        <Container className={'family-brands'}>
+          <Box className={'category-title'}>Our Family Brands</Box>
+          <Stack className={'brand-list'}>
+            <Box className={'review-box'}>
+              <img src={'/img/gurme.webp'} alt='' />
+            </Box>
+            <Box className={'review-box'}>
+              <img src={'/img/seafood.webp'} alt='' />
+            </Box>
+            <Box className={'review-box'}>
+              <img src={'/img/doner.webp'} alt='' />
+            </Box>
+            <Box className={'review-box'}>
+              <img src={'/img/sweets.webp'} alt='' />
+            </Box>
+          </Stack>
+        </Container>
+      </div>
+
+      <div className={'address'}>
+        <Container>
+          <Stack className={'address-area'}>
+            <Box className={'title'}>Our address</Box>
+            <iframe
+              style={{ marginTop: '60px' }}
+              title='map'
+              src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96326.03685561026!2d28.92022666528895!3d41.02112846139867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab82bea99445f%3A0x6ed7f4baceb4476c!2sMaiden&#39;s%20Tower!5e0!3m2!1sen!2skr!4v1757106097524!5m2!1sen!2skr'
+              width='1320'
+              height='500'
+              referrerPolicy='no-referrer-when-downgrade'
+            ></iframe>
+          </Stack>
+        </Container>
+      </div>
     </div>
-  );
+  )
 }
