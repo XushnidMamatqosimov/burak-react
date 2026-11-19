@@ -14,11 +14,11 @@ import { createSelector } from 'reselect'
 import { useHistory } from 'react-router-dom'
 import { serverApi } from '../../../lib/config'
 import { Product, ProductInquiry } from '../../../lib/types/product'
-import { CartItem } from '../../../lib/types/search'
-import ProductService from '../../services/ProductService'
 import { retrieveProducts } from './selector'
 import { setProducts } from './slice'
 import { ProductCollection } from '../../../lib/enums/productEnum'
+import ProductService from '../../service/ProductService'
+import "../../../css/products.css";
 
 
 
@@ -86,7 +86,7 @@ export default function Products() {
   return (
     <div className={'products'}>
       <Container>
-        <Stack flexDirection={'column'} alignItems={'center'}>
+        <Stack direction="column" sx={{ alignItems: "center" }}>
           <Stack className={'avatar-big-box'}>
             <Stack className={'top-text'}>
               <p>Bumarak Restaurant</p>
@@ -250,7 +250,7 @@ export default function Products() {
                         <div className={'product-sale'}>{sizeVolume}</div>
                         <Button
                           className={'shop-btn'}
-                          onClick={e => {
+                          /* onClick={e => {
                             onAdd({
                               _id: product._id,
                               quantity: 1,
@@ -259,7 +259,7 @@ export default function Products() {
                               image: product.productImages[0],
                             })
                             e.stopPropagation()
-                          }}
+                          }} */
                         ></Button>
                         <Button className={'view-btn'} sx={{ right: '36px' }}>
                           <Badge
