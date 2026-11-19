@@ -9,6 +9,20 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import "../../../css/products.css";
+import { Dispatch } from "@reduxjs/toolkit";
+import { Product } from "../../../lib/types/product";
+import { setProducts } from "./slice";
+import { createSelector } from "@reduxjs/toolkit";
+import { retrieveProducts } from "./selector";
+
+/** Redux Slice & Selector **/
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+const ProductRetriever = createSelector(
+  retrieveProducts,
+  (products) => products
+);
 
 type Category = "Dish" | "Salad" | "Drink" | "Dessert" | "Other";
 type SortOrder = "new" | "price" | "views";
@@ -202,9 +216,8 @@ export default function Products() {
               <button
                 key={option.value}
                 type="button"
-                className={`catalog-filter ${
-                  sortOrder === option.value ? "is-active" : ""
-                }`}
+                className={`catalog-filter ${sortOrder === option.value ? "is-active" : ""
+                  }`}
                 aria-pressed={sortOrder === option.value}
                 onClick={() => handleSort(option.value)}
               >
@@ -223,9 +236,8 @@ export default function Products() {
                 <button
                   key={item}
                   type="button"
-                  className={`catalog-category ${
-                    category === item ? "is-active" : ""
-                  }`}
+                  className={`catalog-category ${category === item ? "is-active" : ""
+                    }`}
                   aria-pressed={category === item}
                   onClick={() => handleCategory(item)}
                 >
