@@ -1358,3 +1358,828 @@
     min-height: 280px;
   }
 }
+
+
+/* =========================
+   UMUMIY SAHIFA
+========================= */
+
+.products {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 70px;
+  background-color: #f8f8ff;
+  color: #343434;
+}
+
+.products,
+.products *,
+.products *::before,
+.products *::after {
+  box-sizing: border-box;
+}
+
+.products > .MuiContainer-root {
+  width: calc(100% - 48px);
+  max-width: 1320px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.products button {
+  cursor: pointer;
+}
+
+.products button:focus-visible,
+.products input:focus-visible {
+  outline: 2px solid #b78b52;
+  outline-offset: 3px;
+}
+
+/* =========================
+   SARLAVHA VA QIDIRUV
+========================= */
+
+.products .avatar-big-box {
+  width: 100%;
+}
+
+.products .top-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: center;
+  column-gap: 40px;
+  width: 100%;
+  min-height: 48px;
+}
+
+.products .catalog-heading {
+  margin: 0;
+  padding-left: 180px;
+  color: #343434;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.products .catalog-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.05);
+}
+
+.products .single-search-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0 16px;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+  background-color: transparent;
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 16px;
+}
+
+.products .single-search-input::placeholder {
+  color: #999;
+}
+
+.products .single-button-search {
+  flex-shrink: 0;
+  min-width: 106px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 30px;
+  background-color: #343434;
+  color: #d7b586;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+}
+
+.products .single-button-search:hover {
+  background-color: #454545;
+}
+
+.products .single-button-search svg {
+  font-size: 20px;
+}
+
+/* =========================
+   NEW / PRICE / VIEWS
+========================= */
+
+.products .dishes-filter-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 70px 0 42px;
+  padding-right: 80px;
+}
+
+.products .dishes-filter-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 22px;
+}
+
+.products .dishes-filter-box .order {
+  min-width: 70px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   KATEGORIYA VA MAHSULOTLAR
+========================= */
+
+.products .list-category-section {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 30px;
+  width: 100%;
+  padding-right: 20px;
+}
+
+/* Chapdagi kategoriyalar */
+
+.products .product-category {
+  width: 40px;
+  min-width: 0;
+  padding-top: 25px;
+}
+
+.products .category-main {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.products .category-main > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  min-height: 72px;
+  padding: 20px 10px;
+  border-radius: 4px;
+  background-color: #ddbd8c;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+}
+
+.products .category-main > button:hover {
+  background-color: #d2ae79;
+}
+
+.products .category-main > .MuiButton-containedPrimary {
+  background-color: #343434;
+  color: #d7b586;
+}
+
+.products .category-main > .MuiButton-containedPrimary:hover {
+  background-color: #454545;
+}
+
+/* =========================
+   MAHSULOT KARTALARI
+========================= */
+
+.products .product-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 22px;
+  row-gap: 48px;
+  width: 100%;
+  min-width: 0;
+}
+
+.products .product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+}
+
+/* Mahsulot surati */
+
+.products .product-img {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0 60px 0 0;
+  background-color: #e8e8ee;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Hover paytidagi qorayish */
+
+.products .product-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.products .product-card:hover .product-img::after,
+.products .product-card:focus-within .product-img::after {
+  opacity: 1;
+}
+
+/* Normal size belgisi */
+
+.products .product-sale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 25px;
+  background-color: #ff9800;
+  color: #fff;
+  font-family: "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* =========================
+   SAVAT TUGMASI
+========================= */
+
+.products .product-img .shop-btn {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  min-width: 68px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid #d7b586;
+  border-radius: 12px;
+  background-color: #a300c4;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* JSX ichidagi shop-btn bo‘sh:
+   mavjud SVG ikonka CSS orqali chiqariladi. */
+
+.products .product-img .shop-btn::before {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-image: none;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+}
+
+.products .product-img .shop-btn:hover {
+  background-color: #8700a3;
+}
+
+/* Ko‘rishlar tugmasi */
+
+.products .product-img .view-btn {
+  position: absolute;
+  right: 36px;
+  bottom: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  min-width: 38px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.products .product-img .view-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.products .view-btn .MuiSvgIcon-root {
+  font-size: 25px;
+}
+
+.products .view-btn .MuiBadge-badge {
+  min-width: 24px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background-color: #d7b586;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.products .product-card:hover .shop-btn,
+.products .product-card:hover .view-btn,
+.products .product-card:focus-within .shop-btn,
+.products .product-card:focus-within .view-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================
+   MAHSULOT NOMI VA NARXI
+========================= */
+
+/* Tashqi product-desc: nom va narxni ustun qiladi. */
+
+.products .product-card > .product-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding-top: 14px;
+  text-align: center;
+}
+
+.products .product-title {
+  display: block;
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Ichki product-desc: dollar belgisi va narxni yonma-yon qiladi. */
+
+.products .product-card > .product-desc > .product-desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: auto;
+  padding: 0;
+  color: #e4c697;
+  font-family: "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.products .product-card > .product-desc > .product-desc svg {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+/* Mahsulotlar bo‘lmasa */
+
+.products .product-wrapper .no-data {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 90px 20px;
+  color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.products .pagination-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 40px 0 65px;
+}
+
+.products .pagination-section .MuiPagination-ul {
+  justify-content: center;
+  gap: 4px;
+}
+
+.products .pagination-section .MuiPaginationItem-root {
+  min-width: 34px;
+  height: 34px;
+  margin: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #343434;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.products .pagination-section .MuiPaginationItem-root:hover {
+  background-color: #eae3d8;
+}
+
+.products .pagination-section .MuiPaginationItem-root.Mui-selected {
+  background-color: #d7b586;
+  color: #343434;
+}
+
+.products .pagination-section .MuiPaginationItem-root.Mui-selected:hover {
+  background-color: #c9a675;
+}
+
+.products .pagination-section .MuiPaginationItem-root.Mui-disabled {
+  opacity: 0.3;
+}
+
+.products .pagination-section .MuiSvgIcon-root {
+  font-size: 20px;
+}
+
+/* =========================
+   OUR FAMILY BRANDS
+========================= */
+
+.products .brands-logo {
+  width: 100%;
+  padding: 85px 0 110px;
+  background-color: #071416;
+}
+
+.products .family-brands {
+  width: calc(100% - 48px);
+  max-width: 1320px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.products .family-brands .category-title {
+  margin-bottom: 58px;
+  color: #d7b586;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.products .brand-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 50px;
+  width: 100%;
+}
+
+.products .review-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 0.75;
+  overflow: hidden;
+  border-radius: 26px;
+  background-color: #071416;
+  box-shadow: 0 0 25px rgba(220, 220, 220, 0.28);
+}
+
+.products .review-box img {
+  display: block;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+/* =========================
+   OUR ADDRESS
+========================= */
+
+.products .address {
+  width: 100%;
+  padding: 75px 0 90px;
+  background-color: #f8f8ff;
+}
+
+.products .address > .MuiContainer-root {
+  width: calc(100% - 48px);
+  max-width: 1320px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.products .address-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.products .address-area .title {
+  margin: 0;
+  color: #343434;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.products .address-area iframe {
+  display: block;
+  width: 100%;
+  max-width: 1320px;
+  height: 500px;
+  border: none;
+  border-radius: 12px;
+}
+
+/* =========================
+   PLANSHET
+========================= */
+
+@media (max-width: 1100px) {
+  .products .top-text {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    column-gap: 24px;
+  }
+
+  .products .catalog-heading {
+    padding-left: 0;
+    font-size: 32px;
+  }
+
+  .products .dishes-filter-section {
+    padding-right: 0;
+  }
+
+  .products .product-img {
+    border-top-right-radius: 45px;
+  }
+
+  .products .brand-list {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .products {
+    padding-top: 50px;
+  }
+
+  .products .top-text {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+  }
+
+  .products .catalog-search {
+    justify-self: center;
+    max-width: 360px;
+  }
+
+  .products .dishes-filter-section {
+    justify-content: center;
+    margin: 40px 0 32px;
+  }
+
+  .products .list-category-section {
+    padding-right: 0;
+  }
+
+  .products .product-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 36px;
+  }
+
+  .products .brand-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .products .family-brands .category-title {
+    font-size: 36px;
+  }
+
+  .products .address-area iframe {
+    height: 380px;
+  }
+}
+
+/* =========================
+   TELEFON
+========================= */
+
+@media (max-width: 600px) {
+  .products {
+    padding-top: 36px;
+  }
+
+  .products > .MuiContainer-root,
+  .products .family-brands,
+  .products .address > .MuiContainer-root {
+    width: calc(100% - 32px);
+  }
+
+  .products .catalog-heading {
+    font-size: 30px;
+  }
+
+  .products .dishes-filter-box {
+    gap: 12px;
+  }
+
+  .products .dishes-filter-box .order {
+    min-width: 70px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .products .list-category-section {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .products .product-category {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .products .category-main {
+    flex-direction: row-reverse;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .products .category-main > button {
+    width: auto;
+    min-width: 64px;
+    min-height: 40px;
+    padding: 10px 12px;
+    font-size: 12px;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .products .product-wrapper {
+    column-gap: 14px;
+    row-gap: 30px;
+  }
+
+  .products .product-img {
+    border-top-right-radius: 38px;
+  }
+
+  .products .product-sale {
+    top: 8px;
+    left: 8px;
+    min-width: 76px;
+    height: 26px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .products .product-title {
+    font-size: 20px;
+  }
+
+  .products .product-card > .product-desc > .product-desc {
+    font-size: 25px;
+  }
+
+  .products .product-img .shop-btn {
+    width: 48px;
+    min-width: 48px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  .products .product-img .shop-btn::before {
+    width: 21px;
+    height: 21px;
+  }
+
+  .products .product-img .view-btn {
+    right: 12px;
+    min-width: 30px;
+    width: 30px;
+    height: 36px;
+  }
+
+  .products .view-btn .MuiSvgIcon-root {
+    font-size: 22px;
+  }
+
+  .products .pagination-section {
+    margin: 34px 0 50px;
+  }
+
+  .products .brands-logo {
+    padding: 60px 0;
+  }
+
+  .products .family-brands .category-title {
+    margin-bottom: 36px;
+    font-size: 30px;
+  }
+
+  .products .brand-list {
+    gap: 22px;
+  }
+
+  .products .review-box {
+    border-radius: 18px;
+  }
+
+  .products .address {
+    padding: 55px 0;
+  }
+
+  .products .address-area .title {
+    font-size: 30px;
+  }
+
+  .products .address-area iframe {
+    height: 300px;
+  }
+}
+
+/* Sensorli ekranda savat tugmalari ko‘rinib turadi. */
+
+@media (hover: none) {
+  .products .product-img .shop-btn,
+  .products .product-img .view-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

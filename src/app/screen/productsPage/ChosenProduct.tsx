@@ -6,7 +6,8 @@ import Divider from "../../components/divider";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import { FreeMode, Navigation, Thumbs } from "swiper";
-
+import "swiper/css";
+import "swiper/css/navigation";
 import "../../../css/products.css";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Product } from "../../../lib/types/product";
@@ -27,19 +28,19 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 const chosenProductRetriever = createSelector(
   retrieveChosenProduct,
-  (chosenProduct) => ({chosenProduct})
+  (chosenProduct) => ({ chosenProduct })
 );
 const restaurantRetriever = createSelector(
   retrieveRestaurant,
-  (restaurant) => ({restaurant})
+  (restaurant) => ({ restaurant })
 );
 
 
 export default function ChosenProduct() {
   const { productId } = useParams<{ productId: string }>();
   const { setRestaurant, setChosenProduct } = actionDispatch(useDispatch());
-  const {chosenProduct} = useSelector(chosenProductRetriever);
-  const {restaurant} = useSelector(restaurantRetriever);
+  const { chosenProduct } = useSelector(chosenProductRetriever);
+  const { restaurant } = useSelector(restaurantRetriever);
 
   useEffect(() => {
     const product = new ProductService();
@@ -55,29 +56,54 @@ export default function ChosenProduct() {
       .catch((err) => console.log(err))
   }, [])
 
-  if(!chosenProduct) return null;
+  if (!chosenProduct) return null;
   return (
     <div className={"chosen-product"}>
       <Box className={"title"}>Product Detail</Box>
       <Container className={"product-container"}>
-        <Stack className={"chosen-product-slider"}>
+        <Stack
+          className="chosen-product-slider"
+          style={{ width: "100%", minWidth: 0 }}
+        >
           <Swiper
-            loop={true}
+            key={chosenProduct._id}
+            slidesPerView={1}
+            loop={chosenProduct.productImages.length > 1}
             spaceBetween={10}
-            navigation={true}
+            navigation
             modules={[FreeMode, Navigation, Thumbs]}
             className="swiper-area"
+            style={{
+              width: "100%",
+              height: 450,
+            }}
           >
-            {chosenProduct?.productImages.map(
-              (ele: string, index: number) => {
-                const imagePath = `${serverApi}/${ele}`
-                return (
-                  <SwiperSlide key={index}>
-                    <img className="slider-image" src={ele} />
-                  </SwiperSlide>
-                );
-              }
-            )}
+            {chosenProduct.productImages.map((image, index) => {
+              const imagePath =
+                `${serverApi.replace(/\/+$/, "")}/${image.replace(/^\/+/, "")}`;
+
+              return (
+                <SwiperSlide key={index}>
+                  <img
+                    className="slider-image"
+                    src={imagePath}
+                    alt={chosenProduct.productName}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                    onLoad={() => {
+                      console.log("Rasm yuklandi:", imagePath);
+                    }}
+                    onError={() => {
+                      console.error("Rasm yuklanmadi:", imagePath);
+                    }}
+                  />
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </Stack>
         <Stack className={"chosen-product-info"}>
@@ -95,7 +121,7 @@ export default function ChosenProduct() {
                 </div>
               </div>
             </Box>
-            <p className={"product-desc"}>{chosenProduct?.productDesc ? chosenProduct?.productDesc : "No Description" }</p>
+            <p className={"product-desc"}>{chosenProduct?.productDesc ? chosenProduct?.productDesc : "No Description"}</p>
             <Divider height="1" width="100%" bg="#000000" />
             <div className={"product-price"}>
               <span>Price:</span>
@@ -111,3 +137,30 @@ export default function ChosenProduct() {
   );
 }
 
+
+
+{/* <Stack className={"chosen-product-slider"}>
+          <Swiper
+            loop={true}
+            spaceBetween={10}
+            navigation={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="swiper-area"
+          >
+            {(chosenProduct?.productImages ?? []).map(
+              
+              (ele: string, index: number) => {
+                console.log(chosenProduct);
+                const imagePath = `${serverApi}/${ele}`
+                console.log("Rasm manzili:", imagePath);
+                console.log("Mahsulot:", chosenProduct);
+               console.log("Rasmlar:", chosenProduct?.productImages);
+                return (
+                  <SwiperSlide key={index}>
+                    <img className="slider-image" src={imagePath} />
+                  </SwiperSlide>
+                );
+              }
+            )}
+          </Swiper>
+        </Stack> */}

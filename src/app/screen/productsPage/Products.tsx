@@ -18,6 +18,7 @@ import { retrieveProducts } from './selector'
 import { setProducts } from './slice'
 import { ProductCollection } from '../../../lib/enums/productEnum'
 import ProductService from '../../service/ProductService'
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "../../../css/products.css";
 
 
@@ -80,7 +81,7 @@ export default function Products() {
     setProductSearch({ ...productSearch });
   }
   const chooseDishHandler = (id: string) =>{
-    history.push("/products/${id}");
+    history.push(`/products/${id}`);
   }
 
   return (
@@ -89,8 +90,8 @@ export default function Products() {
         <Stack direction="column" sx={{ alignItems: "center" }}>
           <Stack className={'avatar-big-box'}>
             <Stack className={'top-text'}>
-              <p>Bumarak Restaurant</p>
-              <Stack className={'single-search-big-box'}>
+              <h1 className="catalog-heading">Burak Restaurant</h1>
+              <Stack className={"catalog-search"}>
                 <input
                   type={'search'}
                   className={'single-search-input'}
@@ -139,7 +140,7 @@ export default function Products() {
                     ? "primary"
                     : "secondary"}
                 onClick={() =>
-                  searchOrderHandler("createdAt")
+                  searchOrderHandler("productPrice")
                 }
               >
                 Price
@@ -152,7 +153,7 @@ export default function Products() {
                     ? "primary"
                     : "secondary"}
                 onClick={() =>
-                  searchOrderHandler("createdAt")
+                  searchOrderHandler("productViews")
                 }
               >
                 Views

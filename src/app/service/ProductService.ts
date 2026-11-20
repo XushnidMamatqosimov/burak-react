@@ -32,7 +32,7 @@ class ProductService {
         const product = await axios.get(url, {withCredentials: true});
         console.log("getProduct",product);
 
-        return product.data;
+        return product.data.result;
       }catch(err) { 
          console.log("Errors: ", err);
             throw err;
