@@ -17,12 +17,20 @@ import "../css/footer.css";
 import HelpPage from './screen/helpPage';
 import Test from './screen/Test';
 import useBasket from './hooks/useBasket';
+import AuthenticationModal from './components/auth';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
 
 function App() {
   const location = useLocation();
   const { cardItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+  const [signupOpen, setSignupOpen] = useState<boolean>(false);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
+
+  /** HANDLERS **/
+  const handleSignupClose = () => setSignupOpen(false);
+  const handleLoginClose = () => setLoginOpen(false);
+
 
 
   return (
@@ -30,7 +38,7 @@ function App() {
       {location.pathname === "/" ? (
         <HomeNavbar
           cardItems={cardItems}
-          onAdd = {onAdd}
+          onAdd={onAdd}
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
@@ -38,7 +46,7 @@ function App() {
       ) : (
         <OtherNavbar
           cardItems={cardItems}
-          onAdd = {onAdd}
+          onAdd={onAdd}
           onRemove={onRemove}
           onDelete={onDelete}
           onDeleteAll={onDeleteAll}
@@ -63,6 +71,13 @@ function App() {
         </Route>
       </Switch>
       <Footer />
+
+      <AuthenticationModal
+          signupOpen={signupOpen}
+          loginOpen = {loginOpen}
+          handleLoginClose={handleLoginClose}
+          handleSignupClose={handleSignupClose}
+      />
     </>
   );
 }
