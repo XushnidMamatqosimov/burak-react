@@ -20,6 +20,7 @@ import { ProductCollection } from '../../../lib/enums/productEnum'
 import ProductService from '../../service/ProductService'
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "../../../css/products.css";
+import { CardItem } from '../../../lib/types/search'
 
 
 
@@ -32,8 +33,13 @@ const productRetriever = createSelector(
   (products) => ({ products })
 );
 
+interface ProductsProps {
+  onAdd: (item: CardItem) => void;
+}
 
-export default function Products() {
+
+export default function Products(props: ProductsProps) {
+  const { onAdd } = props;
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productRetriever);
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
@@ -251,7 +257,7 @@ export default function Products() {
                         <div className={'product-sale'}>{sizeVolume}</div>
                         <Button
                           className={'shop-btn'}
-                          /* onClick={e => {
+                          onClick={e => {
                             onAdd({
                               _id: product._id,
                               quantity: 1,
@@ -260,7 +266,7 @@ export default function Products() {
                               image: product.productImages[0],
                             })
                             e.stopPropagation()
-                          }} */
+                          }}
                         ></Button>
                         <Button className={'view-btn'} sx={{ right: '36px' }}>
                           <Badge
