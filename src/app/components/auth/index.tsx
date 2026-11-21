@@ -6,6 +6,9 @@ import Fade from "@material-ui/core/Fade";
 import { Fab, Stack, TextField } from "@mui/material";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
+import { T } from "../../../lib/types/common";
+import { MemberInput } from "../../../lib/types/member";
+import MemberService from "../../service/MemberService";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -40,9 +43,49 @@ interface AuthenticationModalProps {
 export default function AuthenticationModal(props: AuthenticationModalProps) {
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
+  const [memberNick, setMemberNick] = useState<string>("");
+  const [memberPhone, setMemberPhone] = useState<string>("");
+  const [memberPassword, setMemberPassword] = useState<string>("");
+
 
   /** HANDLERS **/
+  const handleUsername = (e: T) => {
+    console.log(e.target.value);
+    setMemberNick(e.target.value);
+  };
+  const handlePhone = (e: T) => {
+    console.log(e.target.value);
+    setMemberPhone(e.target.value);
+  };
+  const handlePassword = (e: T) => {
+    console.log(e.target.value);
+    setMemberPassword(e.target.value);
+  };
+  const handleSignupRequest = async () => {
+    try {
+      console.log("Inputs: ", memberNick, memberPhone, memberPassword);
+      const isFulfill =
+        memberNick !== "" &&
+        memberPhone !== "" &&
+        memberPassword !== "";
+      if(!isFulfill){
+        throw new Error("Please fill in all fields");
+      }
+      const signupInput: MemberInput = {
+        memberNick: memberNick,
+        memberPhone: memberPhone,
+        memberPassword: memberPassword,
+      }
+     
+     const member = new MemberService();
+     const result = await member.signup(signupInput);
 
+     handleSignupClose();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
   return (
     <div>
       <Modal
@@ -71,22 +114,26 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                 id="outlined-basic"
                 label="username"
                 variant="outlined"
+                onChange={handleUsername}
               />
               <TextField
                 sx={{ my: "17px" }}
                 id="outlined-basic"
                 label="phone number"
                 variant="outlined"
+                onChange={handlePhone}
               />
               <TextField
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
+                onChange={handlePassword}
               />
               <Fab
                 sx={{ marginTop: "30px", width: "120px" }}
                 variant="extended"
                 color="primary"
+                onClick={handleSignupRequest}
               >
                 <LoginIcon sx={{ mr: 1 }} />
                 Signup
