@@ -6,8 +6,9 @@ import Divider from "../../components/divider";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import { FreeMode, Navigation, Thumbs } from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
+// @ts-ignore
+import "swiper/css"; // @ts-ignore
+import "swiper/css/navigation";// @ts-ignore
 import "../../../css/products.css";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Product } from "../../../lib/types/product";

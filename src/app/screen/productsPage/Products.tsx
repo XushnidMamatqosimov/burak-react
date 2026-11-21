@@ -18,7 +18,8 @@ import { retrieveProducts } from './selector'
 import { setProducts } from './slice'
 import { ProductCollection } from '../../../lib/enums/productEnum'
 import ProductService from '../../service/ProductService'
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"; 
+// @ts-ignore
 import "../../../css/products.css";
 import { CardItem } from '../../../lib/types/search'
 
