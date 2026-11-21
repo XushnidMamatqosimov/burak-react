@@ -6,10 +6,14 @@ import { CardItem } from "../../../lib/types/search";
 
 interface HomeNavbarProps {
   cardItems: CardItem[];
+  onAdd: (item: CardItem) => void;
+  onRemove: (item: CardItem) => void;
+  onDelete: (item: CardItem) => void;
+  onDeleteAll: () => void;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
-  const { cardItems } = props;
+  const { cardItems, onAdd, onRemove, onDelete, onDeleteAll} = props;
   const authMember = true;
   const [count, setCount] = useState<number>(0);
   const [value, setValue] = useState<Boolean>(true);
@@ -55,7 +59,13 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               <NavLink to="/help" activeClassName="underline">Help</NavLink>
             </Box>
 
-            <Basket cardItems={cardItems} />
+            <Basket
+              cardItems={cardItems}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              onDelete={onDelete}
+              onDeleteAll={onDeleteAll}
+            />
             {!authMember ? (
               <Box>
                 <Button variant="contained" className="login-button">Login</Button>

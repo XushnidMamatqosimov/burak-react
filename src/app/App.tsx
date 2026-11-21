@@ -16,41 +16,37 @@ import "../css/navbar.css";
 import "../css/footer.css";
 import HelpPage from './screen/helpPage';
 import Test from './screen/Test';
-import { CardItem } from '../lib/types/search';
+import useBasket from './hooks/useBasket';
 
 const RouterLink = Link as unknown as React.ComponentType<React.PropsWithChildren<{ to: string }>>;
 
 function App() {
   const location = useLocation();
+  const { cardItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
 
-  const cardJson: string | null = localStorage.getItem("cardData");
-  const currentCard = cardJson ? JSON.parse(cardJson): []
-  const [cardItems, setCardItems] = useState<CardItem[]>(currentCard);
-  /* HANDLERS */
-  const onAdd = (input: CardItem) => {
-    const exist: any = cardItems.find(
-      (item: CardItem) => item._id === input._id
-    );
-    if (exist) {
-      const cardUpdate = cardItems.map((item: CardItem) =>
-        item._id === input._id
-          ? { ...exist, quantity: exist.quantity + 1 } : item
-      );
-      setCardItems(cardUpdate);
-      localStorage.setItem("cardData", JSON.stringify(cardUpdate));
-    } else {
-      const cardUpdate = [ ...cardItems, { ...input }];
-      setCardItems(cardUpdate);
-      localStorage.setItem("cardData", JSON.stringify(cardUpdate));
-    }
-  }
 
   return (
     <>
-      {location.pathname === "/" ? <HomeNavbar cardItems={cardItems} /> : <OtherNavbar  cardItems={cardItems}/>}
+      {location.pathname === "/" ? (
+        <HomeNavbar
+          cardItems={cardItems}
+          onAdd = {onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
+      ) : (
+        <OtherNavbar
+          cardItems={cardItems}
+          onAdd = {onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
+      )}
       <Switch>
         <Route path="/products">
-          <ProductsPage onAdd={onAdd}/>
+          <ProductsPage onAdd={onAdd} />
         </Route>
         <Route path="/orders">
           <OrdersPage />
