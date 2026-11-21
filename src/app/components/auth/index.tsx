@@ -10,6 +10,7 @@ import { T } from "../../../lib/types/common";
 import { LoginInput, MemberInput } from "../../../lib/types/member";
 import MemberService from "../../service/MemberService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { useGlobals } from "../../hooks/useGlobal";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -47,7 +48,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
-  const {setAuthMember} = useGlobal();
+  const {setAuthMember} = useGlobals();
 
 
   /** HANDLERS **/
