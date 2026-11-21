@@ -12,6 +12,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { CssVarsProvider } from "@mui/joy/styles";
 
 import { THEME_ID as MATERIAL_THEME_ID } from "@mui/material/styles";
+import ContextProvider from './app/context/ContextProvider';
 
 const CompatibleRouter = Router as unknown as React.ComponentType<React.PropsWithChildren>;
 const CompatibleProvider = Provider as unknown as React.ComponentType<
@@ -24,14 +25,16 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <CompatibleProvider store={store}>
-      <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
-        <CssVarsProvider>
-          <CssBaseline />
-          <CompatibleRouter>
-            <App />
-          </CompatibleRouter>
-        </CssVarsProvider>
-      </ThemeProvider>
+      <ContextProvider>
+        <ThemeProvider theme={{ [MATERIAL_THEME_ID]: theme }}>
+          <CssVarsProvider>
+            <CssBaseline />
+            <CompatibleRouter>
+              <App />
+            </CompatibleRouter>
+          </CssVarsProvider>
+        </ThemeProvider>
+      </ContextProvider>
     </CompatibleProvider>
   </React.StrictMode>,
 );
