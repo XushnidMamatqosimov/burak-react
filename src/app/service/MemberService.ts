@@ -43,7 +43,7 @@ class MemberService {
       const result = await axios.post(url, input, {withCredentials: true});
       console.log("SignUp: ", result);
 
-      const member: Member = result.data
+      const member: Member = result.data.member
       localStorage.setItem("memberData", JSON.stringify(member))
       return member;
     } catch (err) {
@@ -59,7 +59,7 @@ class MemberService {
       console.log("Login: ", result);
 
 
-      const member: Member = result.data
+      const member: Member = result.data.member
       localStorage.setItem("memberData", JSON.stringify(member))
       return member;
     } catch (err) {
