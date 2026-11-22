@@ -90,7 +90,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
      
      const member = new MemberService();
      const result = await member.signup(signupInput);
-     localStorage.setItem("memberData", JSON.stringify(result));
 
      // Saving Authenticated user
      setAuthMember(result);
@@ -118,7 +117,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
      
      const member = new MemberService();
      const result = await member.login(loginInput);
-     localStorage.setItem("memberData", JSON.stringify(result));
 
      // Saving Authenticated user
      setAuthMember(result);
