@@ -43,8 +43,8 @@ class MemberService {
       const result = await axios.post(url, input, {withCredentials: true});
       console.log("SignUp: ", result);
 
-
       const member: Member = result.data
+      localStorage.setItem("memberData", JSON.stringify(member))
       return member;
     } catch (err) {
       console.log("SignUp Error: ", err);
