@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import TabPanel from "@mui/lab/TabPanel";
-import { Order, OrderItem } from "../../../lib/types/order";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/order";
 import { Box, Stack } from "@mui/material";
 
 import { useSelector } from "react-redux";
@@ -8,6 +8,12 @@ import { createSelector } from "reselect";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
 import { retrievePausedOrders } from "./selector";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { T } from "../../../lib/types/common";
+import { OrderStatus } from "../../../lib/enums/orderEnum";
+import { useGlobals } from "../../hooks/useGlobal";
+import OrderService from "../../service/OrderService";
+
 
 
 /** REDUX SLICE and SELECTOR */
@@ -16,9 +22,63 @@ const pausedOrdersRetriever = createSelector(
 	pausedOrders => ({ pausedOrders }),
 )
 
+interface PausedOrdersProps {
+  setValue: (input: string)=> void;
+}
 
-export default function PausedOrders() {
+export default function PausedOrders(props: PausedOrdersProps) {
+  const {authMember, setOrderBuilder} = useGlobals();
+	const { setValue } = props;
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
+
+  /* HANDLERS */
+  const deleteOrderHandler = async(e: T) => {
+    try{
+      if(!authMember) throw new Error("Please Login First");
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.DELETE,
+      };
+
+      const confirmation = window.confirm("Do you want to delete the order? ");
+      if(confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+
+        // Order rebuild
+        setOrderBuilder(new Date());
+      }
+    }catch (err){
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  }
+
+  const processOrderHandler = async(e: T) => {
+    try{
+      if(!authMember) throw new Error("Please Login First");
+      // PAYMENT PROCESS
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.PROCESS,
+      };
+
+      const confirmation = window.confirm(
+        "Do you want to proceed with payment? "
+      );
+      if(confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        setValue("2");
+        setOrderBuilder(new Date());
+      }
+    }catch (err){
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  }
 
   return (
 		<TabPanel value={'1'}>
@@ -81,7 +141,7 @@ export default function PausedOrders() {
 									variant='contained'
 									color='secondary'
 									className={'cancel-button'}
-									//onClick={deleteOrderHandler}
+									onClick={deleteOrderHandler}
 								>
 									Cancel
 								</Button>
@@ -89,7 +149,7 @@ export default function PausedOrders() {
 									value={order._id}
 									variant='contained'
 									className={'pay-button'}
-									//onClick={processOrderHandler}
+									onClick={processOrderHandler}
 								>
 									Payment
 								</Button>

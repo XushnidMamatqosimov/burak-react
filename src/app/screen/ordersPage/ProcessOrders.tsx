@@ -25,11 +25,12 @@ interface ProcessOrdersProps {
 }
 
 export default function ProcessOrders(props: ProcessOrdersProps) {
-	const { setValue } = props
+	const { setValue } = props;
+  const {authMember, setOrderBuilder} = useGlobals();
 	const { processOrders } = useSelector(processOrdersRetriever)
 
 	/** HANDLERS */
-	/* const finishOrderHandler = async (e: T) => {
+	const finishOrderHandler = async (e: T) => {
 		try {
 			if (!authMember) throw new Error(Messages.error2)
 			// PAYMENT PROCESS
@@ -42,7 +43,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
 			const confirmation = window.confirm('Have you  received your order?')
 			if (confirmation) {
 				const order = new OrderService()
-				//await order.updateOrder(input)
+				await order.updateOrder(input)
 				setValue('3')
 				setOrderBuilder(new Date())
 			}
@@ -50,7 +51,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
 			console.log(err)
 			sweetErrorHandling(err).then()
 		}
-	} */
+	}
 
 	return (
 		<TabPanel value={'2'}>
@@ -115,7 +116,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
 									value={order._id}
 									variant='contained'
 									className={'verify-button'}
-									//onClick={finishOrderHandler}
+									onClick={finishOrderHandler}
 								>
 									Verify to Fulfil
 								</Button>
