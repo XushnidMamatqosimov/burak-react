@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, Dispatch } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,6 +11,16 @@ import FinishedOrders from "./FinishedOrders";
 
 //@ts-ignore
 import "../../../css/order.css";
+import { Order } from "../../../lib/types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { useDispatch } from "react-redux";
+
+/**  Redux Slice & Selector **/
+const actionDishpatch = (dispatch: Dispatch) => ({
+  setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
 
 const panelStyle = {
   width: "100%",
@@ -40,6 +50,7 @@ const inputStyle = {
 } as const;
 
 export default function OrdersPage() {
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } = actionDishpatch(useDispatch);
   const [value, setValue] = useState("1");
 
   const handleChange = (_e: SyntheticEvent, newValue: string) => {
