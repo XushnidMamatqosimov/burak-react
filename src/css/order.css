@@ -949,3 +949,800 @@
     gap: 28px;
   }
 }
+
+
+
+
+/* ==================== PROCESS ORDERS ==================== */
+
+[role="tabpanel"]:has(.verify-button) {
+  width: 100%;
+  min-width: 0;
+  padding: 40px 40px 24px;
+  box-sizing: border-box;
+  container-type: inline-size;
+}
+
+[role="tabpanel"]:has(.verify-button) > div {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Buyurtma kartasi */
+
+[role="tabpanel"]:has(.verify-button) .order-main-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 26px 44px 16px;
+  box-sizing: border-box;
+
+  border: 0;
+  border-radius: 24px;
+  background-color: #f8f8ff;
+
+  font-family: "Times New Roman", serif;
+
+  box-shadow:
+    -12px 16px 5px rgba(0, 0, 0, 0.25),
+    inset 0 10px 20px rgba(157, 155, 188, 0.36),
+    inset 0 -10px 20px rgba(157, 155, 188, 0.36);
+}
+
+/* Mahsulotlar ro‘yxati */
+
+[role="tabpanel"]:has(.verify-button) .order-box-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+  max-height: 146px;
+  padding: 0 20px 4px;
+  box-sizing: border-box;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c8c5dc transparent;
+}
+
+[role="tabpanel"]:has(.verify-button)
+  .order-box-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+[role="tabpanel"]:has(.verify-button)
+  .order-box-scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #c8c5dc;
+}
+
+/* Bitta mahsulot qatori */
+
+[role="tabpanel"]:has(.verify-button) .orders-name-price {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) minmax(170px, 45%);
+  align-items: center;
+  column-gap: 28px;
+
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 64px;
+  margin: 0;
+}
+
+/* Mahsulot rasmi */
+
+[role="tabpanel"]:has(.verify-button) .order-dish-img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mahsulot nomi */
+
+[role="tabpanel"]:has(.verify-button) .title-dish {
+  min-width: 0;
+  margin: 0;
+
+  color: #111;
+  font-family: "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narx × soni = jami */
+
+[role="tabpanel"]:has(.verify-button) .price-box {
+  display: grid;
+  grid-template-columns:
+    max-content 14px max-content 14px max-content;
+  align-items: center;
+  justify-content: start;
+  column-gap: 8px;
+
+  min-width: 0;
+  margin: 0;
+
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.verify-button) .price-box p {
+  margin: 0;
+  font: inherit;
+}
+
+[role="tabpanel"]:has(.verify-button) .price-box img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* Hisob-kitob, sana va tasdiqlash tugmasi */
+
+[role="tabpanel"]:has(.verify-button) .total-price-box {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: 20px 24px;
+
+  width: 100%;
+  min-width: 0;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+/* Product price + delivery cost = Total */
+
+[role="tabpanel"]:has(.verify-button) .box-total {
+  display: grid;
+  grid-template-columns: repeat(8, max-content);
+  align-items: center;
+  column-gap: 24px;
+
+  grid-column: 1;
+  grid-row: 1;
+
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  color: #242424;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+[role="tabpanel"]:has(.verify-button) .box-total p {
+  margin: 0;
+  font: inherit;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.verify-button) .box-total img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+
+  /* JSX ichidagi marginLeft o‘rnini grid gap boshqaradi */
+  margin-left: 0 !important;
+}
+
+/* Sana */
+
+[role="tabpanel"]:has(.verify-button) .data-compl {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+
+  width: auto;
+  margin: 0;
+  padding: 0;
+
+  color: #5b5b5b;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* VERIFY TO FULFIL — pastki chap tomon */
+
+[role="tabpanel"]:has(.verify-button) .verify-button {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 224px;
+  min-width: 0;
+  height: 50px;
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  border: 0;
+  border-radius: 14px;
+  background-color: #009bc4;
+  color: #fff;
+
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.17),
+    0 3px 5px rgba(0, 0, 0, 0.2);
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+[role="tabpanel"]:has(.verify-button) .verify-button:hover {
+  background-color: #0089b1;
+
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.14),
+    0 4px 7px rgba(0, 0, 0, 0.24);
+}
+
+[role="tabpanel"]:has(.verify-button)
+  .verify-button:focus-visible {
+  outline: 3px solid #8ed8ea;
+  outline-offset: 3px;
+}
+
+/* Panel torayganda */
+
+@container (max-width: 760px) {
+  [role="tabpanel"]:has(.verify-button) .order-main-box {
+    padding: 24px 28px 16px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .order-box-scroll {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .orders-name-price {
+    grid-template-columns: 60px minmax(0, 1fr) minmax(150px, 40%);
+    column-gap: 22px;
+    min-height: 60px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .order-dish-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .title-dish {
+    font-size: 28px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .price-box {
+    font-size: 22px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .box-total {
+    column-gap: 16px;
+    font-size: 16px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .data-compl {
+    font-size: 18px;
+  }
+}
+
+/* Sana va tugmani alohida qatorlarga joylash */
+
+@container (max-width: 660px) {
+  [role="tabpanel"]:has(.verify-button) .total-price-box {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .box-total {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .data-compl {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .verify-button {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+/* Kichik kartalar */
+
+@container (max-width: 480px) {
+  [role="tabpanel"]:has(.verify-button) .order-main-box {
+    padding: 20px 18px 16px;
+    border-radius: 20px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .order-box-scroll {
+    max-height: 190px;
+    gap: 14px;
+    padding: 0;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .orders-name-price {
+    grid-template-columns: 46px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 4px;
+    min-height: 60px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .order-dish-img {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 46px;
+    height: 46px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .title-dish {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 22px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .price-box {
+    grid-column: 2;
+    grid-row: 2;
+    grid-template-columns:
+      max-content 12px max-content 12px max-content;
+    column-gap: 6px;
+    font-size: 18px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .price-box img {
+    width: 12px;
+    height: 12px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .box-total {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 8px 14px;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .box-total img {
+    display: none;
+  }
+
+  [role="tabpanel"]:has(.verify-button)
+    .box-total p:nth-of-type(even) {
+    text-align: right;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .data-compl {
+    font-size: 16px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) .verify-button {
+    width: 100%;
+    height: 46px;
+    font-size: 17px;
+  }
+}
+
+/* Mobil ekranda tashqi bo‘shliq */
+
+@media (max-width: 600px) {
+  [role="tabpanel"]:has(.verify-button) {
+    padding: 20px 0 24px;
+  }
+
+  [role="tabpanel"]:has(.verify-button) > div {
+    gap: 28px;
+  }
+}
+
+/* ==================== FINISHED ORDERS ==================== */
+
+/* Buyurtma kartalari bor, tugmasiz Finished paneli */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button)) {
+  width: 100%;
+  min-width: 0;
+  padding: 40px 40px 24px;
+  box-sizing: border-box;
+  container-type: inline-size;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button)) > div {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* Buyurtma kartasi */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .order-main-box {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 26px 44px 24px;
+  box-sizing: border-box;
+
+  border: 0;
+  border-radius: 24px;
+  background-color: #f8f8ff;
+
+  color: #171717;
+  font-family: "Times New Roman", serif;
+
+  box-shadow:
+    -12px 16px 5px rgba(0, 0, 0, 0.25),
+    inset 0 10px 20px rgba(157, 155, 188, 0.36),
+    inset 0 -10px 20px rgba(157, 155, 188, 0.36);
+}
+
+/* Mahsulotlar ro‘yxati */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .order-box-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+  max-height: 204px;
+  margin: 0;
+  padding: 0 20px 4px;
+  box-sizing: border-box;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c8c5dc transparent;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .order-box-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .order-box-scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #c8c5dc;
+}
+
+/* Bitta mahsulot qatori */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .orders-name-price {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr) minmax(170px, 45%);
+  align-items: center;
+  column-gap: 28px;
+
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 60px;
+  height: auto;
+  margin: 0;
+}
+
+/* Mahsulot rasmi */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .order-dish-img {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0;
+
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mahsulot nomi */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .title-dish {
+  min-width: 0;
+  margin: 0;
+
+  color: #111;
+  font-family: "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narx × miqdor = jami */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .price-box {
+  display: grid;
+  grid-template-columns:
+    max-content 14px max-content 14px max-content;
+  align-items: center;
+  justify-content: start;
+  column-gap: 8px;
+
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  color: #343434;
+  font-family: "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .price-box p {
+  margin: 0;
+  font: inherit;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .price-box img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* Kartaning pastidagi markazlangan hisob */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .total-price-box {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+/* Product price + Delivery cost = Total */
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .box-total {
+  display: grid;
+  grid-template-columns: repeat(8, max-content);
+  align-items: center;
+  justify-content: center;
+  column-gap: 26px;
+
+  width: max-content;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  color: #242424;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .box-total p {
+  margin: 0;
+  font: inherit;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.order-main-box):not(:has(button))
+  .box-total img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+
+  /* JSX ichidagi marginLeft o‘rnini grid gap boshqaradi */
+  margin-left: 0 !important;
+}
+
+/* Panel torayganda */
+
+@container (max-width: 760px) {
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-main-box {
+    padding: 24px 28px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-box-scroll {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .orders-name-price {
+    grid-template-columns: 56px minmax(0, 1fr) minmax(150px, 42%);
+    column-gap: 22px;
+    min-height: 56px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-dish-img {
+    width: 56px;
+    height: 56px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .title-dish {
+    font-size: 26px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .price-box {
+    font-size: 20px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .box-total {
+    column-gap: 18px;
+    font-size: 16px;
+  }
+}
+
+/* Kichik kartalar */
+
+@container (max-width: 540px) {
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-main-box {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-box-scroll {
+    gap: 14px;
+    max-height: 240px;
+    padding: 0;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .orders-name-price {
+    grid-template-columns: 46px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 4px;
+    min-height: 60px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .order-dish-img {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 46px;
+    height: 46px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .title-dish {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 22px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .price-box {
+    grid-column: 2;
+    grid-row: 2;
+    grid-template-columns:
+      max-content 12px max-content 12px max-content;
+    column-gap: 6px;
+    font-size: 18px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .price-box img {
+    width: 12px;
+    height: 12px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .total-price-box {
+    margin-top: 24px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .box-total {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    justify-content: stretch;
+    gap: 8px 14px;
+
+    width: 100%;
+    max-width: 320px;
+    font-size: 16px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .box-total img {
+    display: none;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button))
+    .box-total p:nth-of-type(even) {
+    text-align: right;
+  }
+}
+
+/* Mobil ekranda tashqi bo‘shliq */
+
+@media (max-width: 600px) {
+  [role="tabpanel"]:has(.order-main-box):not(:has(button)) {
+    padding: 20px 0 24px;
+  }
+
+  [role="tabpanel"]:has(.order-main-box):not(:has(button)) > div {
+    gap: 28px;
+  }
+}
