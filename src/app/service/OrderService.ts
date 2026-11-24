@@ -1,12 +1,51 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
+import { Order, OrderInquiry, OrderItemInput } from "../../lib/types/order";
+import { CardItem } from "../../lib/types/search";
 
 class OrderService {
-    private readonly path: string;
-    
-      constructor() {
-        this.path = serverApi;
-      }
+  private readonly path: string;
+
+  constructor() {
+    this.path = serverApi;
+  }
+
+  public async createOrder(input: CardItem[]): Promise<Order> {
+    try {
+      const orderItems: OrderItemInput[] = input.map((cardItem: CardItem) => {
+        return {
+          itemQuantity: cardItem.quantity,
+          itemPrice: cardItem.price,
+          productId: cardItem._id,
+        }
+      });
+
+      const url = this.path + "/order/create";
+      const result = await axios.post(url, orderItems, { withCredentials: true });
+      console.log("Create Order: ", result)
+
+      return result.data;
+    } catch (err) {
+      console.log("Error, createOrder: ", err);
+      throw err;
+    }
+  }
+
+  public async getMyOrders(input: OrderInquiry): Promise<Order[]> {
+    try {
+      const url = `${this.path}/order/getAll`;
+      const query = `?page=${input.page}&limit=${input.limit}&orderStatus=${input.orderStatus}`;
+      const result = await axios.get(url + query, { withCredentials: true });
+      console.log("GetMyOrders: ", result);
+      console.log("Buyurtmalar javobi:", result.data);
+      console.log("Massivmi:", Array.isArray(result.data));
+
+      return result.data.ordersList;
+    } catch (err) {
+      console.log("Error, getMyOrders: ", err);
+      throw err;
+    }
+  }
 
 
 }

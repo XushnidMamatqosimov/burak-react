@@ -583,3 +583,369 @@
     padding-top: 0;
   }
 }
+
+
+
+
+/* ==================== PAUSED ORDERS ==================== */
+
+[role="tabpanel"]:has(.cancel-button) {
+  width: 100%;
+  min-width: 0;
+  padding: 40px 40px 24px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  container-type: inline-size;
+}
+
+[role="tabpanel"]:has(.cancel-button) > div {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Buyurtma kartasi */
+
+[role="tabpanel"]:has(.cancel-button) .order-main-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 18px 30px 14px;
+  box-sizing: border-box;
+
+  background: #f8f8ff;
+  border: 7px solid #dfdeee;
+  border-radius: 22px;
+
+  box-shadow:
+    -12px 12px 4px rgba(0, 0, 0, 0.25),
+    inset 0 0 16px rgba(178, 175, 204, 0.12);
+}
+
+/* Mahsulotlar ro‘yxati */
+
+[role="tabpanel"]:has(.cancel-button) .order-box-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  max-height: 174px;
+  padding: 0 4px 2px 0;
+  box-sizing: border-box;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #c8c5dc transparent;
+}
+
+[role="tabpanel"]:has(.cancel-button)
+  .order-box-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+[role="tabpanel"]:has(.cancel-button)
+  .order-box-scroll::-webkit-scrollbar-thumb {
+  background: #c8c5dc;
+  border-radius: 10px;
+}
+
+/* Bitta mahsulot qatori */
+
+[role="tabpanel"]:has(.cancel-button) .orders-name-price {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) minmax(170px, 32%);
+  align-items: center;
+  column-gap: 22px;
+
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+  margin: 0;
+}
+
+/* Mahsulot rasmi */
+
+[role="tabpanel"]:has(.cancel-button) .order-dish-img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin: 0;
+
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.24);
+}
+
+/* Mahsulot nomi */
+
+[role="tabpanel"]:has(.cancel-button) .title-dish {
+  min-width: 0;
+  margin: 0;
+
+  color: #171717;
+  font-family: Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.25;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narx × soni = jami */
+
+[role="tabpanel"]:has(.cancel-button) .price-box {
+  display: grid;
+  grid-template-columns:
+    max-content 14px max-content 14px max-content;
+  align-items: center;
+  justify-content: start;
+  column-gap: 16px;
+
+  min-width: 0;
+  margin: 0;
+
+  color: #5b5b5b;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.cancel-button) .price-box p {
+  margin: 0;
+  font: inherit;
+}
+
+[role="tabpanel"]:has(.cancel-button) .price-box p:last-child {
+  /* JSX ichidagi marginLeft: 15px o‘rnini grid gap boshqaradi */
+  margin-left: 0 !important;
+}
+
+[role="tabpanel"]:has(.cancel-button) .price-box img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* Pastki qator: hisob-kitob va tugmalar */
+
+[role="tabpanel"]:has(.cancel-button) .total-price-box {
+  display: grid;
+  grid-template-columns: max-content 100px 100px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  width: 100%;
+  min-width: 0;
+  margin-top: 24px;
+}
+
+/* Product price + Delivery cost = Total */
+
+[role="tabpanel"]:has(.cancel-button) .box-total {
+  display: grid;
+  grid-template-columns: repeat(8, max-content);
+  align-items: center;
+  column-gap: 16px;
+
+  min-width: 0;
+  margin: 0;
+
+  color: #202020;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+[role="tabpanel"]:has(.cancel-button) .box-total p {
+  margin: 0;
+  font: inherit;
+  white-space: nowrap;
+}
+
+[role="tabpanel"]:has(.cancel-button)
+  .box-total p:nth-of-type(even) {
+  color: #606060;
+}
+
+[role="tabpanel"]:has(.cancel-button) .box-total img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+
+  /* JSX ichidagi marginLeft: 20px o‘rnini grid gap boshqaradi */
+  margin-left: 0 !important;
+}
+
+/* Tugmalar uchun umumiy uslub */
+
+[role="tabpanel"]:has(.cancel-button)
+  :is(.cancel-button, .pay-button) {
+  width: 100px;
+  min-width: 100px;
+  height: 40px;
+  margin: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  border: 0;
+  border-radius: 12px;
+
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Cancel */
+
+[role="tabpanel"]:has(.cancel-button) .cancel-button {
+  color: #343434;
+  background-color: #d7bd91;
+}
+
+[role="tabpanel"]:has(.cancel-button) .cancel-button:hover {
+  background-color: #c9ad7d;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.22);
+}
+
+/* Payment */
+
+[role="tabpanel"]:has(.cancel-button) .pay-button {
+  color: #fff;
+  background-color: #80bd66;
+}
+
+[role="tabpanel"]:has(.cancel-button) .pay-button:hover {
+  background-color: #6caa54;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.22);
+}
+
+[role="tabpanel"]:has(.cancel-button)
+  :is(.cancel-button, .pay-button):focus-visible {
+  outline: 3px solid #a99bce;
+  outline-offset: 3px;
+}
+
+/* Panel torayganda pastki qatorni moslashtirish */
+
+@container (max-width: 760px) {
+  [role="tabpanel"]:has(.cancel-button) .total-price-box {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .box-total {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    column-gap: 10px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button)
+    :is(.cancel-button, .pay-button) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .title-dish {
+    font-size: 23px;
+  }
+}
+
+/* Kichik kartalar */
+
+@container (max-width: 540px) {
+  [role="tabpanel"]:has(.cancel-button) .order-main-box {
+    padding: 16px;
+    border-width: 6px;
+    border-radius: 20px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .order-box-scroll {
+    gap: 14px;
+    max-height: 240px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .orders-name-price {
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 4px;
+    min-height: 58px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .order-dish-img {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 44px;
+    height: 44px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .title-dish {
+    grid-column: 2;
+    font-size: 20px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .price-box {
+    grid-column: 2;
+    font-size: 16px;
+    column-gap: 10px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .total-price-box {
+    margin-top: 22px;
+    gap: 14px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .box-total {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 8px 14px;
+    font-size: 14px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) .box-total img {
+    display: none;
+  }
+
+  [role="tabpanel"]:has(.cancel-button)
+    .box-total p:nth-of-type(even) {
+    text-align: right;
+  }
+}
+
+/* Mobil ekranda tashqi bo‘shliq */
+
+@media (max-width: 600px) {
+  [role="tabpanel"]:has(.cancel-button) {
+    padding: 20px 0 24px;
+  }
+
+  [role="tabpanel"]:has(.cancel-button) > div {
+    gap: 28px;
+  }
+}

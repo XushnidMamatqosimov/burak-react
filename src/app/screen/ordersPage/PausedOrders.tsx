@@ -1,121 +1,128 @@
 import Button from "@mui/material/Button";
 import TabPanel from "@mui/lab/TabPanel";
+import { Order, OrderItem } from "../../../lib/types/order";
+import { Box, Stack } from "@mui/material";
 
-const products = [
-  {
-    id: 1,
-    name: "Steak",
-    image: "/img/kebab.webp",
-    price: 10,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Fried chicken",
-    image: "/img/kebab-fresh.webp",
-    price: 10,
-    quantity: 2,
-  },
-  {
-    id: 3,
-    name: "Winner",
-    image: "/img/lavash.webp",
-    price: 10,
-    quantity: 2,
-  },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
+import { retrievePausedOrders } from "./selector";
 
-const orders = [
-  { id: 1, products, deliveryCost: 5 },
-  { id: 2, products, deliveryCost: 5 },
-];
+
+/** REDUX SLICE and SELECTOR */
+const pausedOrdersRetriever = createSelector(
+	retrievePausedOrders,
+	pausedOrders => ({ pausedOrders }),
+)
+
 
 export default function PausedOrders() {
+  const { pausedOrders } = useSelector(pausedOrdersRetriever);
+
   return (
-    <TabPanel value="1">
-      <div className="paused-orders-panel">
-      <div className="paused-orders-list">
-        {orders.map((order) => {
-          const productPrice = order.products.reduce(
-            (sum, product) => sum + product.price * product.quantity,
-            0
-          );
+		<TabPanel value={'1'}>
+			<Stack>
+				{pausedOrders?.map((order: Order) => {
+					return (
+						<Box key={order._id} className={'order-main-box'}>
+							<Box className={'order-box-scroll'}>
+								{order?.orderItems?.map((item: OrderItem) => {
+									const product: Product = order.productData.filter(
+										(ele: Product) => {
+											return item.productId === ele._id
+										},
+									)[0]
 
-          const total = productPrice + order.deliveryCost;
+									const imagePath = `${serverApi}/${product.productImages[0]}`
+									return (
+										<Box key={item._id} className={'orders-name-price'}>
+											<img
+												src={imagePath}
+												alt=''
+												className={'order-dish-img'}
+											/>
+											<p className={'title-dish'}>{product.productName}</p>
+											<Box className={'price-box'}>
+												<p>${item.itemPrice}</p>
+												<img src={'/icons/close.svg'} alt=' ' />
+												<p>{item.itemQuantity}</p>
+												<img src={'/icons/pause.svg'} alt=' ' />
+												<p style={{ marginLeft: '15px' }}>
+													${item.itemQuantity * item.itemPrice}
+												</p>
+											</Box>
+										</Box>
+									)
+								})}
+							</Box>
 
-          return (
-            <div key={order.id} className="paused-order-card">
-              <div className="paused-order-items">
-                {order.products.map((product) => (
-                  <div key={product.id} className="paused-order-item">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="paused-order-image"
-                    />
+							<Box className={'total-price-box'}>
+								<Box className={'box-total'}>
+									<p>Product price</p>
+									<p>${order.orderTotal - order.orderDelivery}</p>
+									<img
+										src={'/icons/plus.svg'}
+										alt=' '
+										style={{ marginLeft: '20px' }}
+									/>
+									<p>Delivery cost</p>
+									<p>${order.orderDelivery}</p>
+									<img
+										src={'/icons/pause.svg'}
+										alt=' '
+										style={{ marginLeft: '20px' }}
+									/>
+									<p>Total</p>
+									<p>${order.orderTotal}</p>
+								</Box>
+								<Button
+									value={order._id}
+									variant='contained'
+									color='secondary'
+									className={'cancel-button'}
+									//onClick={deleteOrderHandler}
+								>
+									Cancel
+								</Button>
+								<Button
+									value={order._id}
+									variant='contained'
+									className={'pay-button'}
+									//onClick={processOrderHandler}
+								>
+									Payment
+								</Button>
+							</Box>
+						</Box>
+					)
+				})}
 
-                    <span className="paused-order-name">
-                      {product.name}
-                    </span>
-
-                    <div className="paused-order-price">
-                      <span>${product.price}</span>
-                      <span className="paused-order-symbol">×</span>
-                      <span>{product.quantity}</span>
-                      <span className="paused-order-symbol">=</span>
-                      <span>${product.price * product.quantity}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="paused-order-footer">
-                <div className="paused-order-summary">
-                  <div className="paused-order-summary-part">
-                    <span>Product price</span>
-                    <span className="paused-order-amount">
-                      ${productPrice}
-                    </span>
-                  </div>
-
-                  <span className="paused-order-symbol">+</span>
-
-                  <div className="paused-order-summary-part">
-                    <span>Delivery cost</span>
-                    <span className="paused-order-amount">
-                      ${order.deliveryCost}
-                    </span>
-                  </div>
-
-                  <span className="paused-order-symbol">=</span>
-
-                  <div className="paused-order-summary-part">
-                    <span>Total</span>
-                    <span className="paused-order-amount">${total}</span>
-                  </div>
-                </div>
-
-                <div className="paused-order-actions">
-                  <Button
-                    variant="contained"
-                    className="paused-order-button paused-order-cancel"
-                  >
-                    CANCEL
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    className="paused-order-button paused-order-payment"
-                  >
-                    PAYMENT
-                  </Button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      </div>
-    </TabPanel>
-  );
+				{!pausedOrders ||
+					(pausedOrders.length === 0 && (
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'center',
+							}}
+						>
+							<img
+								src={'/icons/noimage-list.svg'}
+								alt=' '
+								style={{ width: 300, height: 300 }}
+							/>
+						</Box>
+					))}
+			</Stack>
+		</TabPanel>
+	)
 }
+
+
+
+
+
+
+
+

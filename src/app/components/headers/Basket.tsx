@@ -9,6 +9,10 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useHistory } from "react-router-dom";
 import { CardItem } from "../../../lib/types/search";
 import { serverApi } from "../../../lib/config";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { useGlobals } from "../../hooks/useGlobal";
+import { Message } from "@mui/icons-material";
+import OrderService from "../../service/OrderService";
 
 interface BasketProps {
   cardItems: CardItem[];
@@ -20,7 +24,7 @@ interface BasketProps {
 
 export default function Basket(props: BasketProps) {
   const { cardItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const authMember = null;
+  const authMember = useGlobals();
   const history = useHistory();
   const itemsPrice: number = cardItems.reduce((a: number, c: CardItem) => a + c.quantity * c.price, 0);
   const shippingCost: number = itemsPrice < 100 ? 5 : 0;
@@ -36,6 +40,25 @@ export default function Basket(props: BasketProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const proceedOrderHandler = async() =>{
+    try{
+      handleClose();
+      if(!authMember) throw new Error("You are not authenticated");
+
+     const order = new OrderService();
+     await order.createOrder(cardItems);
+     
+     onDeleteAll();
+
+     // REFRESH VIA CONTEXT
+     history.push("/orders");
+
+    }catch(err){
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  }
 
   return (
     <Box className={"hover-line"}>
@@ -147,7 +170,11 @@ export default function Basket(props: BasketProps) {
               <span className={"price"}>
                 Total: ${totalPrice} ({itemsPrice} + {shippingCost})
               </span>
-              <Button startIcon={<ShoppingCartIcon />} variant={"contained"}>
+              <Button
+                startIcon={<ShoppingCartIcon />}
+                variant={"contained"}
+                onClick={proceedOrderHandler}
+              >
                 Order
               </Button>
             </Box>
