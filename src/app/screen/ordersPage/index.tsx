@@ -19,6 +19,8 @@ import { OrderStatus } from "../../../lib/enums/orderEnum";
 import OrderService from "../../service/OrderService";
 import { useGlobals } from "../../hooks/useGlobal";
 import { useHistory } from "react-router-dom";
+import { serverApi } from "../../../lib/config";
+import { MemberType } from "../../../lib/enums/memberTypeEnum";
 
 /**  Redux Slice & Selector **/
 const actionDishpatch = (dispatch: Dispatch) => ({
@@ -86,7 +88,7 @@ export default function OrdersPage() {
     setValue(newValue);
   };
 
-   if(!authMember) history.push("/");
+  if (!authMember) history.push("/");
   return (
     <div className="order-page">
       <Container
@@ -174,7 +176,9 @@ export default function OrdersPage() {
               >
                 <Box
                   component="img"
-                  src="/icons/default-user.svg"
+                  src={authMember?.memberImage
+                    ? `${serverApi}/${authMember.memberImage}`
+                    : "/icons/default-user.svg"}
                   alt="Foydalanuvchi rasmi"
                   className="order-user-avatar"
                   sx={{
@@ -187,6 +191,7 @@ export default function OrdersPage() {
                   }}
                 />
 
+                {/* Video qilmgan joyim */}
                 <Box
                   className="order-user-icon-box"
                   sx={{
@@ -201,10 +206,13 @@ export default function OrdersPage() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+
                 >
                   <Box
                     component="img"
-                    src="/icons/user-badge.svg"
+                    src={authMember?.memberType === MemberType.RESTAURANT
+                                            ? "/icons/restaurant.svg"
+                                            : "/icons/user-badge.svg"}
                     alt="Foydalanuvchi belgisi"
                     className="order-user-prof-img"
                     sx={{
@@ -225,7 +233,7 @@ export default function OrdersPage() {
                   lineHeight: 1.2,
                 }}
               >
-                Martin
+                {authMember?.memberNick}
               </Box>
 
               <Box
@@ -236,7 +244,7 @@ export default function OrdersPage() {
                   fontSize: "22px",
                 }}
               >
-                User
+                {authMember?.memberType}
               </Box>
             </Box>
 
@@ -254,7 +262,9 @@ export default function OrdersPage() {
               }}
             >
               <LocationOnIcon sx={{ color: "#343434" }} />
-              <span>Do not exist</span>
+              <span>{authMember?.memberAddress
+                  ? authMember.memberAddress
+                  : "No Address"}</span>
             </Box>
           </Box>
 
