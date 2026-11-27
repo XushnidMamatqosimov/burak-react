@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { OrderStatus } from "../../../lib/enums/orderEnum";
 import OrderService from "../../service/OrderService";
 import { useGlobals } from "../../hooks/useGlobal";
+import { useHistory } from "react-router-dom";
 
 /**  Redux Slice & Selector **/
 const actionDishpatch = (dispatch: Dispatch) => ({
@@ -56,7 +57,8 @@ const inputStyle = {
 export default function OrdersPage() {
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDishpatch(useDispatch());
-  const { orderBuilder } = useGlobals();
+  const { orderBuilder, authMember } = useGlobals();
+  const history = useHistory();
   const [value, setValue] = useState("1");
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
     page: 1,
@@ -84,6 +86,7 @@ export default function OrdersPage() {
     setValue(newValue);
   };
 
+   if(!authMember) history.push("/");
   return (
     <div className="order-page">
       <Container
